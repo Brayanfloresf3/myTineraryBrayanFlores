@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
  return (
-    <footer className="bg-black text-white py-4">
+    <footer className="bg-black text-white py-4 bottom-0">
       <div className="container mx-auto text-center">
         <p className="text-sm mb-2">© 2024 Spaced. All Rights Reserved.</p>
         <div className="flex justify-center space-x-4">

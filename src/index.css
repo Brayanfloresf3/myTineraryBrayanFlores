@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-    background: linear-gradient(to bottom, #202E2C, #1d847d);
-    min-height: 100vh;
+    background-color: black;
     margin: 0; /* Remueve el margen del body */
   }
   
