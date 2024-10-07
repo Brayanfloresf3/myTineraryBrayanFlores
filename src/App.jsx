@@ -3,7 +3,7 @@ import Carousel from './Components/Carousel.jsx';
 import { NavBar } from './Components/NavBar.jsx';
 import { Hero } from './Components/Hero.jsx';
 import { Footer } from './Components/Footer.jsx';
-import { Form } from './Components/Formulario.jsx';
+import { CallToAction } from './Components/CallToAction.jsx';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
   className="relative w-full h-screen bg-cover bg-center" 
   style={{
     backgroundImage: 
-      'linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, #405C59 100%), url(/src/assets/pexels-ozgomz-840663.jpg)'
+      'linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, #405C59 100%), url("/assets/pexels-ozgomz-840663.jpg")'
   }}
 >
           {/* Overlay */}
@@ -22,10 +22,11 @@ function App() {
           </div>
           <NavBar></NavBar>
           <Hero></Hero>
-          
-          <Carousel></Carousel>
-                   
+          <CallToAction></CallToAction>
+        <Carousel></Carousel>
 
+        
+        
           <Footer></Footer>
 
 

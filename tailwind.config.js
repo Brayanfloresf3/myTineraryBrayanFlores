@@ -6,10 +6,10 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        'space-black': '#0f172a',
-        'overlay-gray': '#1e293b',
+      boxShadow: {
+        'custom': '0 35px 60px -15px rgba(28, 40, 40, 0.3)', // Color #1C2828
       },
+      
     },
   plugins: [],
 }

@@ -16,7 +16,7 @@ export function NavBar() {
     }, []);
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen); 
+        setIsMenuOpen(!isMenuOpen);
     };
 
     return (
@@ -24,8 +24,11 @@ export function NavBar() {
             }`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
                 <a href="#" className="flex items-center space-x-3">
-                    <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Flowbite</span>
+                    <span className="self-center text-2xl text-white" style={{ fontFamily: 'Bungee, cursive' }}>MY 
+                    ITINERARY</span>
+                    <span className="material-symbols-outlined text-white">
+                        travel
+                    </span>
                 </a>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 ">
                     <button type="button" className="flex text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center mt-1 mb-1 gap-2">
@@ -35,7 +38,7 @@ export function NavBar() {
                         </svg>
                     </button>
                     <button
-                        onClick={toggleMenu} 
+                        onClick={toggleMenu}
                         type="button"
                         className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                         aria-controls="navbar-sticky"

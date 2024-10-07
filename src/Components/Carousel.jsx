@@ -1,82 +1,105 @@
 import React, { useState, useEffect } from 'react';
 
 const cities = [
-  { name: "New York", image: "https://via.placeholder.com/150?text=New+York" },
-  { name: "Tokyo", image: "https://via.placeholder.com/150?text=Tokyo" },
-  { name: "Paris", image: "https://via.placeholder.com/150?text=Paris" },
-  { name: "London", image: "https://via.placeholder.com/150?text=London" },
-  { name: "Sydney", image: "https://via.placeholder.com/150?text=Sydney" },
-  { name: "Dubai", image: "https://via.placeholder.com/150?text=Dubai" },
-  { name: "Rome", image: "https://via.placeholder.com/150?text=Rome" },
-  { name: "Berlin", image: "https://via.placeholder.com/150?text=Berlin" },
-  { name: "Los Angeles", image: "https://via.placeholder.com/150?text=Los+Angeles" },
-  { name: "Moscow", image: "https://via.placeholder.com/150?text=Moscow" },
-  { name: "Shanghai", image: "https://via.placeholder.com/150?text=Shanghai" },
-  { name: "Toronto", image: "https://via.placeholder.com/150?text=Toronto" }
+  { name: "New York", image: "https://images.pexels.com/photos/2404843/pexels-photo-2404843.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "Tokyo", image: "https://images.pexels.com/photos/2385210/pexels-photo-2385210.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "Paris", image: "https://images.pexels.com/photos/460740/pexels-photo-460740.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+  { name: "London", image: "https://images.pexels.com/photos/912897/pexels-photo-912897.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "Sydney", image: "https://images.pexels.com/photos/15453729/pexels-photo-15453729/free-photo-of-mar-ciudad-australia-sidney.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "Rio", image: "https://images.pexels.com/photos/1118877/pexels-photo-1118877.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "Rome", image: "https://images.pexels.com/photos/21550396/pexels-photo-21550396/free-photo-of-italia-viaje-viajar-roma.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "MachuPichu", image: "https://images.pexels.com/photos/16756127/pexels-photo-16756127/free-photo-of-montanas-punto-de-referencia-viaje-viajar.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "Suiza", image: "https://images.pexels.com/photos/21938815/pexels-photo-21938815/free-photo-of-vista-del-matterhorn-desde-la-ruta-de-senderismo-en-zermatt.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "SaltoAngel", image: "https://media.istockphoto.com/id/155152984/es/foto/%C3%A1ngel-falls.jpg?b=1&s=612x612&w=0&k=20&c=eTUaIDVLpr5dN9-5Gp-3RhS_36FjnadX8igeLVrX9jg=" },
+  { name: "Cartagena", image: "https://images.pexels.com/photos/17745834/pexels-photo-17745834/free-photo-of-ciudad-calle-edificio-callejon.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "SalarBolivia", image: "https://images.pexels.com/photos/7358860/pexels-photo-7358860.jpeg?auto=compress&cs=tinysrgb&w=600" }
 ];
 
-const Carousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+// Dividir las ciudades en grupos de 4
+const groupedCities = [];
+for (let i = 0; i < cities.length; i += 4) {
+  groupedCities.push(cities.slice(i, i + 4));
+}
 
-  // Cambiar automáticamente las slides cada 3 segundos
+const Carousel = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Avanzar automáticamente cada 4 segundos
   useEffect(() => {
     const interval = setInterval(() => {
-      nextSlide();
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % groupedCities.length);
+    }, 4000);
 
-  // Mostrar la siguiente slide
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % Math.ceil(cities.length / 4));
+    return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
+  }, []);
+
+  const handleNext = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % groupedCities.length);
   };
 
-  // Mostrar la slide anterior
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + Math.ceil(cities.length / 4)) % Math.ceil(cities.length / 4));
+  const handlePrev = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + groupedCities.length) % groupedCities.length);
   };
-
-  // Dividir las ciudades en slides de 4 fotos cada una
-  const slides = [];
-  for (let i = 0; i < cities.length; i += 4) {
-    slides.push(cities.slice(i, i + 4));
-  }
 
   return (
-    <div className="max-w-4xl mx-auto my-8">
-      <h2 className="text-center text-3xl font-bold mb-6">Popular Mytineraries</h2>
-      <div className="relative w-full overflow-hidden">
-        {/* Renderizar las slides */}
-        <div className="flex transition-transform ease-in-out duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-          {slides.map((slide, index) => (
-            <div key={index} className="min-w-full grid grid-cols-4 gap-4">
-              {slide.map((city, i) => (
-                <div key={i} className="text-center">
-                  <img src={city.image} alt={city.name} className="w-full h-40 object-cover" />
-                  <p className="mt-2 font-semibold">{city.name}</p>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+    <div className="relative w-full h-2/3 bg-black my-20"> 
 
-        {/* Botón para slide anterior */}
-        <button
-          onClick={prevSlide}
-          className="absolute top-1/2 left-5 text-2xl bg-black/30 text-white p-2 rounded-full cursor-pointer -translate-y-1/2"
-        >
-          ❮
-        </button>
-
-        {/* Botón para slide siguiente */}
-        <button
-          onClick={nextSlide}
-          className="absolute top-1/2 right-5 text-2xl bg-black/30 text-white p-2 rounded-full cursor-pointer -translate-y-1/2"
-        >
-          ❯
-        </button>
+  <h2 className='text-white text-center text-2xl font-bold mb-4'>Favorites</h2>
+  <div className="relative h-full overflow-hidden rounded-lg"> 
+    {groupedCities.map((group, index) => (
+      <div
+        key={index}
+        className={`absolute px-14 justify-center items-center inset-0 grid grid-cols-4 gap-4 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+      >
+        {group.map((city) => (
+          <div key={city.name} className="flex h-full flex-col items-center">
+            <img
+              src={city.image}
+              alt={city.name}
+              className="w-full h-full object-cover rounded-lg"
+            />
+            <p className="mt-2 text-center">{city.name}</p>
+          </div>
+        ))}
       </div>
-    </div>
+    ))}
+  </div>
+
+  {/* Slider Indicators */}
+  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
+    {groupedCities.map((_, index) => (
+      <button
+        key={index}
+        className={`w-3 h-3 rounded-full ${index === currentSlide ? 'bg-white' : 'bg-gray-400'}`}
+        onClick={() => setCurrentSlide(index)}
+        aria-label={`Slide ${index + 1}`}
+      />
+    ))}
+  </div>
+
+  {/* Slider Controls */}
+  <button
+    className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
+    onClick={handlePrev}
+  >
+    <span className="inline-flex items-center justify-center w-8 h-20 opacity-70 bg-white rounded-full">
+      <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+      </svg>
+    </span>
+  </button>
+  <button
+    className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
+    onClick={handleNext}
+  >
+    <span className="inline-flex items-center justify-center w-8 h-20 opacity-70 bg-white rounded-full">
+      <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </span>
+  </button>
+</div>
+
   );
 };
 
