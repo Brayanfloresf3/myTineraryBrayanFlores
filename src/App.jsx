@@ -1,20 +1,27 @@
 import React from 'react';
-import {Carousel } from './Components/Carousel.jsx';
-import { NavBar } from './Components/NavBar.jsx';
-import { Hero } from './Components/Hero.jsx';
-import { Footer } from './Components/Footer.jsx';
-import { CallToAction } from './Components/CallToAction.jsx';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Home } from './Pages/Home.jsx'
+import { Cities } from './Pages/Cities.jsx';
+import { NoFound } from './Pages/NotFound.jsx';
+import { StandarLayout } from './Layouts/StandardLayaout.jsx';
+
+const router = createBrowserRouter([
+  {
+    element: <StandarLayout></StandarLayout>,
+    children: [
+      { path: '/', element: <Home /> },
+      { path: '/home', element: <Home /> },
+      { path: '/cities', element: <Cities /> },
+    ]
+  },
+  { path: '/*', element: <NoFound /> }
+]);
+
 
 function App() {
   return (
     <>
-      <div className="App h-screen">
-        <NavBar></NavBar>
-        <Hero></Hero>
-        <CallToAction></CallToAction>
-        <Carousel></Carousel>
-        <Footer></Footer>
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 }
