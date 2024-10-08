@@ -20,7 +20,7 @@ export function NavBar() {
     };
 
     return (
-        <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${isScrolled ? 'bg-black bg-opacity-70' : 'bg-transparent'
+        <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${isScrolled ? 'bg-black bg-opacity-80' : 'bg-transparent'
             }`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
                 <a href="#" className="flex items-center space-x-3">

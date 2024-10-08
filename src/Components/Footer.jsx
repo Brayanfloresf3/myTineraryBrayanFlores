@@ -12,9 +12,6 @@ export function Footer() {
             <li>
               <a href="./cities.html" className="text-gray-400 hover:text-white">Cities</a>
             </li>
-            <li>
-              <a href="#" className="text-gray-400 hover:text-white">Contact Us</a>
-            </li>
           </ul>
         </nav>
 
