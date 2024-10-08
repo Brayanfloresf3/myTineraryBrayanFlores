@@ -21,7 +21,8 @@ for (let i = 0; i < cities.length; i += 4) {
   groupedCities.push(cities.slice(i, i + 4));
 }
 
-const Carousel = () => {
+export function Carousel() {
+  
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Avanzar automáticamente cada 4 segundos
@@ -42,14 +43,14 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full h-2/3 bg-black my-20"> 
+    <div className="relative w-full h-2/3 bg-black my-24"> 
 
-  <h2 className='text-white text-center text-2xl font-bold mb-4'>Favorites</h2>
-  <div className="relative h-full overflow-hidden rounded-lg"> 
+  <h2 className='text-white text-center text-2xl md:text-4xl font-bold mb-4'>elige tu proximo destino</h2>
+  <div className="relative h-full overflow-hidden rounded-lg mt-10"> 
     {groupedCities.map((group, index) => (
       <div
         key={index}
-        className={`absolute px-14 justify-center items-center inset-0 grid grid-cols-4 gap-4 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute px-14 justify-center items-center inset-0 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
       >
         {group.map((city) => (
           <div key={city.name} className="flex h-full flex-col items-center">
@@ -79,7 +80,7 @@ const Carousel = () => {
 
   {/* Slider Controls */}
   <button
-    className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
+    className="absolute top-16 left-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
     onClick={handlePrev}
   >
     <span className="inline-flex items-center justify-center w-8 h-20 opacity-70 bg-white rounded-full">
@@ -89,7 +90,7 @@ const Carousel = () => {
     </span>
   </button>
   <button
-    className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
+    className="absolute top-16 right-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
     onClick={handleNext}
   >
     <span className="inline-flex items-center justify-center w-8 h-20 opacity-70 bg-white rounded-full">
@@ -103,4 +104,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+

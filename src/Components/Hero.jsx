@@ -2,10 +2,20 @@
 
 export function Hero() {
     return (
-        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white">
-            <h1 className="text-6xl font-bold mb-4">EXPLORE THE WORLD</h1>
-            <p className="text-xl mb-8">"Find your perfect trip, designed by insiders who know and love their cities!"</p>
+
+        <div className="relative w-full h-screen bg-cover bg-center"
+            style={{
+                backgroundImage:
+                    'linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, #405C59 100%), url("/assets/imagenHero.jpg")'
+            }}>
+
+            <div className="absolute inset-0 bg-black bg-opacity-50">
             </div>
+            <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white">
+                <h1 className="text-6xl font-bold mb-4">EXPLORE THE WORLD</h1>
+                <p className="text-xl mb-8">"Find your perfect trip, designed by insiders who know and love their cities!"</p>
+            </div>
+        </div>
     )
 }
 
