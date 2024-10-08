@@ -61,9 +61,7 @@ export function NavBar() {
                 <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="navbar-sticky">
                     <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8  md:flex-row md:mt-0">
                         <li>
-                            <a href="#" className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 hover:text-black ">
-                                HOME
-                            </a>
+                            <a href="#" className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 hover:text-black "> HOME </a>
                         </li>
                         <li>
                             <a href="./cities.html" className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 hover:text-black">CITIES</a>

@@ -25,11 +25,11 @@ export function Carousel() {
   
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Avanzar automáticamente cada 4 segundos
+  // Avanzar automáticamente 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % groupedCities.length);
-    }, 4000);
+    }, 4000); 
 
     return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
   }, []);
@@ -45,7 +45,7 @@ export function Carousel() {
   return (
     <div className="relative w-full h-2/3 bg-black my-24"> 
 
-  <h2 className='text-white text-center text-2xl md:text-4xl font-bold mb-4'>elige tu proximo destino</h2>
+  <h2 className='text-white text-center text-2xl md:text-4xl font-bold mb-4'>Explore incredible destinations</h2>
   <div className="relative h-full overflow-hidden rounded-lg mt-10"> 
     {groupedCities.map((group, index) => (
       <div
@@ -53,7 +53,7 @@ export function Carousel() {
         className={`absolute px-14 justify-center items-center inset-0 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
       >
         {group.map((city) => (
-          <div key={city.name} className="flex h-full flex-col items-center">
+          <div key={city.name} className="flex h-96 flex-col items-center">
             <img
               src={city.image}
               alt={city.name}
@@ -66,7 +66,7 @@ export function Carousel() {
     ))}
   </div>
 
-  {/* Slider Indicators */}
+
   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
     {groupedCities.map((_, index) => (
       <button
@@ -78,7 +78,7 @@ export function Carousel() {
     ))}
   </div>
 
-  {/* Slider Controls */}
+
   <button
     className="absolute top-16 left-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
     onClick={handlePrev}
