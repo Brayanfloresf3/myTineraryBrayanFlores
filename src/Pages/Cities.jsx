@@ -1,6 +1,5 @@
 import React from 'react';
 import { Skeleton } from '../Components/Skeleton';
-import { ModalSignIn } from '../Components/ModalSignIn';
 
 
 export function Cities() {
@@ -22,7 +21,6 @@ export function Cities() {
 
       ))}
       </div>
-     <ModalSignIn></ModalSignIn>
     </>
   );
 }
