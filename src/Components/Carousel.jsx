@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const cities = [
-  { name: "New York", image: "https://images.pexels.com/photos/2404843/pexels-photo-2404843.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { name: "Egipto", image: "https://images.pexels.com/photos/7566890/pexels-photo-7566890.jpeg?auto=compress&cs=tinysrgb&w=600" },
   { name: "Tokyo", image: "https://images.pexels.com/photos/2385210/pexels-photo-2385210.jpeg?auto=compress&cs=tinysrgb&w=600" },
   { name: "Paris", image: "https://images.pexels.com/photos/460740/pexels-photo-460740.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
   { name: "London", image: "https://images.pexels.com/photos/912897/pexels-photo-912897.jpeg?auto=compress&cs=tinysrgb&w=600" },
@@ -43,8 +43,8 @@ export function Carousel() {
   };
 
   return (
-    <div className="relative w-full md:h-[400px] h-[385px] bg-black my-24">
-      <h2 className="text-white text-center text-2xl md:text-5xl font-bold mb-4">
+    <div className="relative w-full md:h-[400px] h-[384px] bg-black md:my-24 mb-20">
+      <h2 className="text-white text-center text-3xl md:text-5xl font-bold">
         Explore incredible destinations
       </h2>
       
@@ -52,7 +52,7 @@ export function Carousel() {
         {groupedCities.map((group, index) => (
           <div
             key={index}
-            className={`absolute px-14 justify-center items-center inset-0 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute px-14 justify-center items-center inset-0 sm:grid sm:grid-cols-2 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
           >
             {group.map((city) => {
               return (
@@ -70,7 +70,7 @@ export function Carousel() {
       </div>
     
       {/* Indicadores del carrusel */}
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
+      <div className="absolute  left-1/2 transform -translate-x-1/2 z-30 flex space-x-3 ">
         {groupedCities.map((_, index) => (
           <button
             key={index}

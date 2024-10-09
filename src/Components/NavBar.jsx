@@ -26,19 +26,17 @@ export function NavBar() {
         { to: '/Cities', text: 'Cities' },
     ];
 
-    const navLinkClasses = isScrolled ? 'hover:text-[#0A9977]' : 'hover:text-black';
+    const navLinkClasses = isScrolled ? 'hover:text-[#21ABB8]' : 'hover:text-black';
 
     return (
         <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${isScrolled ? 'bg-black bg-opacity-80' : 'bg-transparent'}`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-                <a href="#" className="flex items-center">
-                    <span className="tracking-wide md:self-center md:text-lg md:text-2xl text-white" style={{ fontFamily: 'Bungee, cursive' }}>
-                        MY TINERARY
+                <NavLink to="/" className="flex items-center">
+                    <span className="tracking-wide md:self-center md:text-xl text-white" style={{ fontFamily: 'Bungee, cursive' }}>
+                        MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden md:inline-block mb-2' />TINERARY 
                     </span>
-                    <span className="hidden md:inline-block material-symbols-outlined text-white text-2xl ml-1">
-                        travel
-                    </span>
-                </a>
+                    
+                </NavLink>
                 <div className="flex md:order-2 space-x-3 md:space-x-0">
                     <ButtonPrimary name="Sign in" />
                     <button
@@ -60,7 +58,7 @@ export function NavBar() {
                             <li key={index}>
                                 <NavLink
                                     to={route.to}
-                                    className={`block py-2 px-3 text-white rounded ${navLinkClasses} md:p-0 hover:bg-gray-100 md:hover:bg-transparent`} // Hover con background solo en pantallas pequeñas
+                                    className={`block py-2 px-3 text-white rounded ${navLinkClasses} md:p-0 hover:bg-gray-100 md:hover:bg-transparent`} 
                                 >
                                     {route.text}
                                 </NavLink>

@@ -12,9 +12,7 @@ export function StandarLayout() {
       <main className="min-h-screen">
         <Outlet />
       </main>
-      <footer>
       <Footer />
-      </footer>
     </>
   );
 }
