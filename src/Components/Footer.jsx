@@ -1,17 +1,24 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+const routes = [
+  { to: '/', text: 'Home' },
+  { to: '/Cities', text: 'Cities' },
+];
 
 export function Footer() {
   return (
     <footer className="bg-black text-white py-6">
       <div className="container mx-auto text-center">
-        <nav className="mb-4">
+      <nav className="mb-4">
           <ul className="flex justify-center space-x-6">
-            <li>
-              <a href="#" className="text-gray-400 hover:text-white">Home</a>
-            </li>
-            <li>
-              <a href="./cities.html" className="text-gray-400 hover:text-white">Cities</a>
-            </li>
+            {routes.map((route, index) => (
+              <li key={index}>
+                <NavLink to={route.to} className="text-gray-400 hover:text-white">
+                  {route.text}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
 

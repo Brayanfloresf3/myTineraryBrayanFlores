@@ -6,11 +6,15 @@ import { Footer } from '../Components/Footer.jsx';
 export function StandarLayout() {
   return (
     <>
+    <header>
       <NavBar />
+      </header>
       <main className="min-h-screen">
         <Outlet />
       </main>
+      <footer>
       <Footer />
+      </footer>
     </>
   );
 }
