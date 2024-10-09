@@ -26,6 +26,8 @@ export function NavBar() {
         { to: '/Cities', text: 'Cities' },
     ];
 
+    const navLinkClasses = isScrolled ? 'hover:text-[#0A9977]' : 'hover:text-black';
+
     return (
         <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${isScrolled ? 'bg-black bg-opacity-80' : 'bg-transparent'}`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
@@ -38,7 +40,7 @@ export function NavBar() {
                     </span>
                 </a>
                 <div className="flex md:order-2 space-x-3 md:space-x-0">
-                <ButtonPrimary name="Sign in" />
+                    <ButtonPrimary name="Sign in" />
                     <button
                         onClick={toggleMenu}
                         type="button"
@@ -47,13 +49,7 @@ export function NavBar() {
                         aria-expanded={isMenuOpen ? "true" : "false"}
                     >
                         <span className="sr-only">Open main menu</span>
-                        <svg
-                            className="w-5 h-5 text-white"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 17 14"
-                        >
+                        <svg className="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                         </svg>
                     </button>
@@ -64,10 +60,7 @@ export function NavBar() {
                             <li key={index}>
                                 <NavLink
                                     to={route.to}
-                                    className={`block py-2 px-3 text-white rounded 
-                                    ${isScrolled ? 'hover:text-[#0A9977]' : 'hover:text-black'} 
-                                    md:p-0 
-                                    hover:bg-gray-100 md:hover:bg-transparent`} // Hover con background solo en pantallas pequeñas
+                                    className={`block py-2 px-3 text-white rounded ${navLinkClasses} md:p-0 hover:bg-gray-100 md:hover:bg-transparent`} // Hover con background solo en pantallas pequeñas
                                 >
                                     {route.text}
                                 </NavLink>
