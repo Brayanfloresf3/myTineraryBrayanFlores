@@ -8,10 +8,10 @@ const routes = [
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white py-6">
+    <footer className="bg-black text-white pt-16 pb-4">
       <div className="container mx-auto text-center">
       <nav className="mb-4">
-          <ul className="flex justify-center space-x-6">
+          <ul className="flex justify-center space-x-6 font-bold">
             {routes.map((route, index) => (
               <li key={index}>
                 <NavLink to={route.to} className="text-gray-400 hover:text-white">
@@ -41,12 +41,12 @@ export function Footer() {
           </a>
         </div>
 
-        <div className="mb-4">
-          <p className="text-sm">Contact us: support@myitinerary.com | Phone: +123 456 7890</p>
-          <p className="text-sm">1234 Travel Lane, Adventure City, World</p>
+        <div className="mb-4 mx-4">
+          <p className="text-sm font-bold">Contact us: support@myitinerary.com | Phone: +123 456 7890</p>
+          <p className="text-sm font-bold">1234 Travel Lane, Adventure City, World</p>
         </div>
 
-        <p className="text-sm">© 2024 My Tinerary. All Rights Reserved.</p>
+        <p className="text-sm font-bold">© 2024 My Tinerary. All Rights Reserved.</p>
       </div>
     </footer>
   );
