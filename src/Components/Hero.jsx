@@ -1,6 +1,6 @@
 export function Hero() {
     const backgroundStyle = {
-        backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, #405C59 100%), url("/assets/imagenHero.jpg")',
+        backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, #405C59 100%), url("/assets/imageHero.jpg")',
     };
 
     return (

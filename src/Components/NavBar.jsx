@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ButtonPrimary } from './ButtonPrimary';
+import { ModalSignIn } from './ModalSignIn';
 
 export function NavBar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,9 +20,8 @@ export function NavBar() {
         };
     }, []);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     const routes = [
         { to: '/', text: 'Home' },
@@ -33,12 +35,14 @@ export function NavBar() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
                 <NavLink to="/" className="flex items-center">
                     <span className="tracking-wide md:self-center md:text-xl text-white" style={{ fontFamily: 'Bungee, cursive' }}>
-                        MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden md:inline-block mb-2' />TINERARY 
+                        MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden md:inline-block mb-2' />TINERARY
                     </span>
-                    
+
                 </NavLink>
                 <div className="flex md:order-2 space-x-3 md:space-x-0">
-                    <ButtonPrimary name="Sign in" />
+                    
+                    <ButtonPrimary name="Sign in" onClick={toggleModal} />
+
                     <button
                         onClick={toggleMenu}
                         type="button"
@@ -51,6 +55,8 @@ export function NavBar() {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                         </svg>
                     </button>
+
+                    {isModalOpen && <ModalSignIn onClose={toggleModal} />}
                 </div>
                 <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="navbar-sticky">
                     <ul className="flex flex-col text-lg p-4 md:p-0 mt-4 font-medium md:space-x-8 md:flex-row md:mt-0">
@@ -58,7 +64,7 @@ export function NavBar() {
                             <li key={index}>
                                 <NavLink
                                     to={route.to}
-                                    className={`block py-2 px-3 text-white rounded ${navLinkClasses} md:p-0 hover:bg-gray-100 md:hover:bg-transparent`} 
+                                    className={`block py-2 px-3 text-white rounded ${navLinkClasses} md:p-0 hover:bg-gray-100 md:hover:bg-transparent`}
                                 >
                                     {route.text}
                                 </NavLink>
