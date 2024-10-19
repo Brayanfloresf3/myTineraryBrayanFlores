@@ -22,14 +22,14 @@ for (let i = 0; i < cities.length; i += 4) {
 }
 
 export function Carousel() {
-  
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Avanzar automáticamente 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % groupedCities.length);
-    }, 4000); 
+    }, 4000);
 
     return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
   }, []);
@@ -47,7 +47,7 @@ export function Carousel() {
       <h2 className="text-white text-center text-3xl md:text-5xl font-bold">
         Explore incredible destinations
       </h2>
-      
+
       <div className="relative h-full overflow-hidden rounded-lg mt-10">
         {groupedCities.map((group, index) => (
           <div
@@ -68,7 +68,7 @@ export function Carousel() {
           </div>
         ))}
       </div>
-    
+
       {/* Indicadores del carrusel */}
       <div className="absolute  left-1/2 transform -translate-x-1/2 z-30 flex space-x-3 ">
         {groupedCities.map((_, index) => (
@@ -80,7 +80,7 @@ export function Carousel() {
           />
         ))}
       </div>
-    
+
       {/* Botones de navegación */}
       <button
         className="absolute top-16 left-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
@@ -102,6 +102,8 @@ export function Carousel() {
           </svg>
         </span>
       </button>
+
+
     </div>
   );
 }

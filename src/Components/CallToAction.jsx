@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ButtonPrimary } from './ButtonPrimary';
 
 export function CallToAction() {
     return (
@@ -16,13 +17,16 @@ export function CallToAction() {
             </p>
             <img src="/assets/walkingToCity.jpg" alt="Person walking in a small town" className="w-72 h-5/6 sm:w-5/6 md:w-4/6  object-cover flex justify-center items-center md:absolute md:right-0 md:bottom-0 md:rounded-l-lg shadow-2xl shadow-custom" />
             <Link to="/cities">
-                <button type="button" className="flex text-white font-bold text-2xl bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none rounded-lg px-3 py-4 text-center ml-5 mb-2 gap-2">
-                    Visit Cities
-                    <span className=" material-symbols-outlined text-white text-3xl">
-                        travel
-                    </span>
-                </button>
+                <ButtonPrimary
+                    name="Visit Cities"
+                    className=" text-3xl px-3 py-3 ml-5 mb-2 gap-2"
+                    icon={<span className="material-symbols-outlined text-white text-3xl">
+                    travel
+                </span>}
+                >
+                </ButtonPrimary>
             </Link>
+
         </div>
     );
 }
