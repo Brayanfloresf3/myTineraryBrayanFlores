@@ -2,7 +2,7 @@
 export function ModalSignIn({onClose}) {
     return (
         <>
-            <div tabIndex="-1" aria-hidden="true" className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+            <div aria-hidden="true" className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-80 ">
                     <div className="relative p-4 w-full max-w-md max-h-full">
                         <div className="relative bg-white rounded-lg shadow">
                             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
@@ -24,7 +24,7 @@ export function ModalSignIn({onClose}) {
                                 <form className="space-y-4" action="#">
                                     <div>
                                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email</label>
-                                        <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@company.com" required />
+                                        <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@mytinerary.com" required />
                                     </div>
                                     <div>
                                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Your password</label>
