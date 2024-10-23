@@ -22,16 +22,14 @@ for (let i = 0; i < cities.length; i += 4) {
 }
 
 export function Carousel() {
-
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Avanzar automáticamente 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % groupedCities.length);
     }, 4000);
 
-    return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
+    return () => clearInterval(interval);
   }, []);
 
   const handleNext = () => {
@@ -54,23 +52,21 @@ export function Carousel() {
             key={index}
             className={`absolute px-14 justify-center items-center inset-0 sm:grid sm:grid-cols-2 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
           >
-            {group.map((city) => {
-              return (
-                <div key={city.name} className="relative flex h-96 flex-col items-center">
-                  <img
-                    src={city.image}
-                    alt={city.name}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              );
-            })}
+            {group.map((city) => (
+              <div key={city.name} className="relative flex h-96 flex-col items-center">
+                <img
+                  src={city.image}
+                  alt={city.name}
+                  className="w-full h-full object-cover rounded-lg"
+                  onError={(e) => { e.target.src = 'fallback-image-url'; }} // Handle image loading error
+                />
+              </div>
+            ))}
           </div>
         ))}
       </div>
 
-      {/* Indicadores del carrusel */}
-      <div className="absolute  left-1/2 transform -translate-x-1/2 z-30 flex space-x-3 ">
+      <div className="absolute left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
         {groupedCities.map((_, index) => (
           <button
             key={index}
@@ -81,10 +77,10 @@ export function Carousel() {
         ))}
       </div>
 
-      {/* Botones de navegación */}
       <button
         className="absolute top-16 left-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
         onClick={handlePrev}
+        aria-label="Previous Slide"
       >
         <span className="inline-flex items-center justify-center w-8 h-20 opacity-70 bg-white rounded-full">
           <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,6 +91,7 @@ export function Carousel() {
       <button
         className="absolute top-16 right-0 z-30 flex items-center justify-center h-full px-4 focus:outline-none"
         onClick={handleNext}
+        aria-label="Next Slide"
       >
         <span className="inline-flex items-center justify-center w-8 h-20 opacity-70 bg-white rounded-full">
           <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,8 +99,6 @@ export function Carousel() {
           </svg>
         </span>
       </button>
-
-
     </div>
   );
 }

@@ -28,8 +28,6 @@ export function NavBar() {
         { to: '/Cities', text: 'Cities' },
     ];
 
-    const navLinkClasses = isScrolled ? 'hover:text-[#21ABB8]' : 'hover:text-black';
-
     return (
         <nav className={`fixed w-full z-20 top-0 start-0 transition-all duration-300 ${isScrolled ? 'bg-black bg-opacity-80' : 'bg-transparent'}`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
@@ -71,7 +69,7 @@ export function NavBar() {
                             <li key={index}>
                                 <NavLink
                                     to={route.to}
-                                    className={`block py-2 px-3 text-white rounded ${navLinkClasses} md:p-0 hover:bg-gray-100 md:hover:bg-transparent`}
+                                    className={`block py-2 px-3 text-white rounded hover:text-[#21ABB8] md:p-0 hover:bg-gray-100 md:hover:bg-transparent`}
                                 >
                                     
                                     {route.text}
