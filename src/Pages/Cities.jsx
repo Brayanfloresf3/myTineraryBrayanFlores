@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '../Components/Card';
 import { SearchBar } from '../Components/SearchBar';
 
 export function Cities() {
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
+
   const backgroundStyle = {
     backgroundImage:
       'linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, #000000 100%), url("/assets/imageHero2.jpg")',
+  };
+
+  const handleSearch = (term) => {
+    setSearchTerm(term); // Actualiza el término de búsqueda
   };
 
   return (
@@ -15,9 +21,9 @@ export function Cities() {
           Unlock the secrets of iconic Cities
         </h1>
       </div>
-      <SearchBar />
-      <div className="w-full p-5">
-        <Card />
+      <SearchBar onSearch={handleSearch} /> {/* función de búsqueda */}
+      <div className="w-full p-4 ">
+        <Card searchTerm={searchTerm} /> {/* término de búsqueda como prop */}
       </div>
     </>
   );

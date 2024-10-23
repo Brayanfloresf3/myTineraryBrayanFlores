@@ -8,7 +8,7 @@ const routes = [
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white pt-16 pb-4">
+    <footer className="bg-black text-white pt-10 pb-4">
       <div className="container mx-auto text-center">
       <nav className="mb-4">
           <ul className="flex justify-center space-x-6 font-bold">
