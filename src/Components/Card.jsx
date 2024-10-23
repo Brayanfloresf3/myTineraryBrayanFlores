@@ -3,24 +3,20 @@ import { Link } from "react-router-dom";
 import { ButtonSecundary } from "./ButtonSecudary";
 
 export function Card() {
-  // Estado para almacenar los datos de las ciudades
-  let [cities, setCities] = useState([]);
+  const [cities, setCities] = useState([]);
 
-  // useEffect para hacer el fetch cuando el componente se monta
   useEffect(() => {
-    let fetchCities = async () => {
-      try {
-        let response = await fetch("http://localhost:8080/api/cities/");
-        let data = await response.json();
-        console.log(data); // Verifica la estructura de la respuesta
-        setCities(data); // Ajusta según la estructura correcta
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-      }
-    };
-
-    fetchCities();
-  }, []); // El array vacío asegura que el fetch se ejecuta una sola vez al montar el componente
+    console.log("Fetching cities...");
+  
+    fetch("https://g7sjdq-8080.csb.app/api/cities")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.response) {
+          setCities(data.response);
+          console.log(data.response);
+        }
+      });
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
