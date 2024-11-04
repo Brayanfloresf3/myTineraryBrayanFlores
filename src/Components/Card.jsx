@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { ButtonSecundary } from "./ButtonSecudary";
+import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCitiesAsync } from "../../store/action/citiesAction.js";
+import { ButtonSecundary } from "./ButtonSecudary.jsx";
 import { Skeleton } from "./Skeleton";
 
 export function Card({ searchTerm }) {
-  const [cities, setCities] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchCities = (searchTerm = "") => {
-    const query = searchTerm ? `?name=${searchTerm}` : ""; // Si hay búsqueda, añadir query param
-    fetch(`http://localhost:8080/api/cities${query}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data && data.response) {
-          setCities(data.response);
-          setLoading(false); // Cuando los datos se carguen, cambiamos el estado de loading
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching cities:", error);
-        setLoading(false); // Incluso si hay un error, dejamos de cargar
-      });
-  };
+  const dispatch = useDispatch();
+  
+  // Obtener ciudades y estado de carga del store
+  const cities = useSelector((state) => state.cities.items);
+  const loading = useSelector((state) => state.cities.loading);
 
   useEffect(() => {
-    setLoading(true); // Establecer el estado de carga al iniciar la búsqueda
-    fetchCities(searchTerm); // Llamar a fetchCities cada vez que searchTerm cambie
-  }, [searchTerm]); // Se vuelve a ejecutar cuando searchTerm cambie
+    dispatch(fetchCitiesAsync(searchTerm)); // Ejecutar fetchCitiesAsync con searchTerm
+  }, [dispatch, searchTerm]);
 
   return (
     <div className="md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -63,7 +51,7 @@ export function Card({ searchTerm }) {
                 </h5>
                 <p className="font-normal mb-4 text-white">{city.country}</p>
               </div>
-              <Link to={`/details/${city._id}`}>
+              <NavLink to={`/details/${city._id}`}>
                 <ButtonSecundary
                   name="Read more"
                   className="absolute bottom-4 right-4"
@@ -82,7 +70,7 @@ export function Card({ searchTerm }) {
                     </svg>
                   }
                 />
-              </Link>
+              </NavLink>
             </div>
           </div>
         ))

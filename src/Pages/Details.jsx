@@ -1,61 +1,65 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCityDetailsAsync } from "../../store/action/detailsAction.js";
 import { ButtonSecundary } from "../Components/ButtonSecudary";
+import { Itinerary } from "../Components/Itinerary.jsx";
+
 
 export function Details() {
-  const { id } = useParams(); // Obtiene el id de la URL
-  const [city, setCity] = useState(null);
-  const [loading, setLoading] = useState(true); // Agregamos un estado para manejar la carga
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { city, loading } = useSelector((state) => state.details);
 
   useEffect(() => {
-    fetch(`https://g7sjdq-8080.csb.app/api/cities/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCity(data);
-        setLoading(false); // Cambiamos el estado de carga cuando tenemos datos
-      })
-      .catch((error) => {
-        console.error("Error fetching city details:", error);
-      });
-  }, [id]);
+    dispatch(fetchCityDetailsAsync(id));
+  }, [id, dispatch]);
 
-  if (loading) return <p>Loading city details...</p>; // Muestra un mensaje de carga
+  if (loading) return <p>Loading city details...</p>;
 
-  if (!city) return <p>City not found.</p>; // Manejo si la ciudad no se encuentra
+  if (!city) return <p>City not found.</p>;
 
   return (
     <>
-      <div
-        className="flex flex-col items-center justify-center bg-center mt-14 md:pt-14 md:h-screen bg-cover"
-        style={{ backgroundImage: `url(${city.photo})` }}
-      >
+      <div className="flex h-screen overflow-hidden mt-14 ">
+        {/* Panel izquierdo con imagen de fondo */}
+        <div className="relative flex flex-col justify-between w-3/5 bg-cover bg-center text-white p-8 border border-none rounded-br-3xl"
+            style={{ backgroundImage: `url(${city.photo})` }}>
+          <div className="text-white bg-black rounded-lg p-4 bg-opacity-60 mt-5">
+            <h1 className="text-6xl font-bold uppercase">{city.name}</h1>
+            <p className="text-2xl mt-6 font-semibold">{city.description}</p>
+          </div>
 
-        <div className="bg-black bg-opacity-70 p-6 sm:rounded-lg text-center md:mb-10">
-          <h1 className="text-4xl font-bold text-white mb-4 text-center">{city.name}</h1>
-          <p className="text-lg text-white mb-2">{city.description}</p>
-          <p className="text-md text-white">Country: {city.country}</p>
-          <p className="text-md text-white">Continent: {city.continent}</p>
-          <p className="text-md text-white">Population: {city.population}</p>
-          <p className="text-md text-white">Currency: {city.currency.code} ({city.currency.symbol})</p>
-          <p className="text-md text-white">Languages: {city.languages}</p>
-          <p className="text-md text-white">Time Zone: {city.timeZone}</p>
-          <p className="text-md text-white">Weather: {city.weather.climate} | Average Temperature: {city.weather.averageTemperature}°C</p>
-          <p className="text-md text-white">Best Time to Visit: {city.weather.bestTimeToVisit}</p>
-          <p className="text-md text-white">Has Airport: {city.transportation.hasAirport ? "Yes" : "No"}</p>
-          <p className="text-md text-white">Has Public Transport: {city.transportation.hasPublicTransport ? "Yes" : "No"}</p>
-          <p className="text-md text-white">Safety Index: {city.safety.safetyIndex}</p>
-          <p className="text-md text-white">Average Hotel Price: ${city.costs.averageHotelPrice}</p>
-          <p className="text-md text-white">Average Meal Price: ${city.costs.averageMealPrice}</p>
-          <p className="text-md text-white">Transportation Price: ${city.costs.transportationPrice}</p>
-          <p className="text-md text-white">Is Capital: {city.isCapital ? "Yes" : "No"}</p>
-          <p className="text-3xl text-white font-bold mb-4">Under construction</p>
-          <Link to="/cities">
-            <ButtonSecundary name="Back to Cities" />
-          </Link>
-
+          {/* Icono de temperatura */}
+          <div className="absolute top-4 right-4 flex items-center space-x-2">
+            <span className="text-lg">{city.weather.averageTemperature}°C</span>
+          </div>
         </div>
 
+        {/* Panel derecho con contenido */}
+        <div className="w-2/5 bg-gradient-to-b from-white via-white to-white p-10 flex flex-col justify-between border border-none rounded-bl-3xl">
+          <div>
+            <h2 className="text-4xl font-bold text-black mt-4 mb-2">Country: {city.country}</h2>
+            <p className="text-md text-black font-semibold mb-1">Continent: {city.continent}</p>
+            <p className="text-md text-black font-semibold mb-1">Population: {city.population}</p>
+            <p className="text-md text-black font-semibold mb-1">Currency: {city.currency.code} ({city.currency.symbol})</p>
+            <p className="text-md text-black font-semibold mb-1">Languages: {city.languages}</p>
+            <p className="text-md text-black font-semibold mb-1">Time Zone: {city.timeZone}</p>
+            <p className="text-md text-black font-semibold mb-1">Weather: {city.weather.climate} | Average Temperature: {city.weather.averageTemperature}°C</p>
+            <p className="text-md text-black font-semibold mb-1">Best Time to Visit: {city.weather.bestTimeToVisit}</p>
+            <p className="text-md text-black font-semibold mb-1">Has Airport: {city.transportation.hasAirport ? "Yes" : "No"}</p>
+            <p className="text-md text-black font-semibold mb-1">Has Public Transport: {city.transportation.hasPublicTransport ? "Yes" : "No"}</p>
+            <p className="text-md text-black font-semibold mb-1">Safety Index: {city.safety.safetyIndex}</p>
+            <p className="text-md text-black font-semibold mb-1">Average Hotel Price: ${city.costs.averageHotelPrice}</p>
+            <p className="text-md text-black font-semibold mb-1">Average Meal Price: ${city.costs.averageMealPrice}</p>
+            <p className="text-md text-black font-semibold mb-1">Transportation Price: ${city.costs.transportationPrice}</p>
+            <p className="text-md text-black font-semibold mb-1">Is Capital: {city.isCapital ? "Yes" : "No"}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="h-screen flex flex-col items-center justify-center bg-center bg-cover">
+        <Itinerary />
       </div>
     </>
   );
