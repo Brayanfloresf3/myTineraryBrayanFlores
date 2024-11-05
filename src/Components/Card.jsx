@@ -17,7 +17,7 @@ export function Card({ searchTerm }) {
   }, [dispatch, searchTerm]);
 
   return (
-    <div className="md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-5">
       {loading ? (
         // Mostrar Skeletons mientras se cargan las ciudades
         Array(8)

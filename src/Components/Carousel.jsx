@@ -41,7 +41,7 @@ export function Carousel() {
   };
 
   return (
-    <div className="relative w-full md:h-[400px] h-[384px] bg-black md:my-24 mb-20">
+    <div className="relative w-full md:h-[400px] h-[384px] bg-#0D0D0D md:my-24 mb-20">
       <h2 className="text-white text-center text-3xl md:text-5xl font-bold">
         Explore incredible destinations
       </h2>

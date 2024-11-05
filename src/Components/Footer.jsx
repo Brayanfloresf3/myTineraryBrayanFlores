@@ -9,18 +9,18 @@ const routes = [
 export function Footer() {
   return (
     <footer className="bg-black text-white pt-10 pb-4">
-      <div className="container mx-auto text-center">
-      <nav className="mb-4">
-          <ul className="flex justify-center space-x-6 font-bold">
-            {routes.map((route, index) => (
-              <li key={index}>
-                <NavLink to={route.to} className="text-gray-400 hover:text-white">
-                  {route.text}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
+  <div className="container mx-auto text-center">
+    <nav className="mb-4">
+      <ul className="flex justify-center space-x-6 font-bold">
+        {routes.map((route, index) => (
+          <li key={index}>
+            <NavLink to={route.to} className="text-gray-400 hover:text-white">
+              {route.text}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
 
 
         <div className="flex justify-center space-x-4 mb-4">

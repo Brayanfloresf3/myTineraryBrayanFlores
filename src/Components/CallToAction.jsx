@@ -5,7 +5,7 @@ export function CallToAction() {
     return (
         <div className="inset-0 flex flex-col md:items-start justify-center items-center space-y-5 sm:space-y-8  md:space-y-10 relative md:h-5/6 h-full md:pt-40 pt-20 pb-10 md:pl-7"
             style={{
-                backgroundImage: 'linear-gradient(to bottom, #202E2D, black)',
+                backgroundImage: 'linear-gradient(to bottom, #202E2D, #0D0D0D)',
             }}>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white z-10 ml-5">
                 <span className="text-transparent bg-clip-text bg-gradient-to-l to-emerald-600 from-sky-400">Discover </span>

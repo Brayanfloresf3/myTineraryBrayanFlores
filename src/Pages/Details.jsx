@@ -21,46 +21,94 @@ export function Details() {
 
   return (
     <>
-      <div className="flex h-screen overflow-hidden mt-14 ">
+      <div className="flex flex-col lg:flex-row h-auto lg:h-screen overflow-hidden mt-14">
         {/* Panel izquierdo con imagen de fondo */}
-        <div className="relative flex flex-col justify-between w-3/5 bg-cover bg-center text-white p-8 border border-none rounded-br-3xl"
-            style={{ backgroundImage: `url(${city.photo})` }}>
-          <div className="text-white bg-black rounded-lg p-4 bg-opacity-60 mt-5">
-            <h1 className="text-6xl font-bold uppercase">{city.name}</h1>
-            <p className="text-2xl mt-6 font-semibold">{city.description}</p>
+        <div
+          className="lg:w-5/6 w-full relative flex flex-col justify-between bg-cover bg-center text-white p-6 md:p-8 border-none lg:rounded-br-3xl"
+          style={{ backgroundImage: `url(${city.photo})` }}
+        >
+          <div className="text-white bg-black rounded-lg p-4 bg-opacity-60 mt-10">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase"><span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+            {city.name}
+                    </span></h1>
+            <p className="text-lg md:text-2xl mt-4 md:mt-6 font-semibold">{city.description}</p>
           </div>
 
           {/* Icono de temperatura */}
-          <div className="absolute top-4 right-4 flex items-center space-x-2">
-            <span className="text-lg">{city.weather.averageTemperature}°C</span>
+          <div className="absolute top-4 right-6 flex items-center space-x-2 bg-white bg-opacity-50 p-2 rounded-lg">
+            <span className="material-symbols-outlined text-black">
+              thermostat
+            </span>
+            <span className="text-sm md:text-lg lg:text-xl text-black font-bold">
+
+              {city.weather.averageTemperature}°C
+
+            </span>
           </div>
         </div>
 
         {/* Panel derecho con contenido */}
-        <div className="w-2/5 bg-gradient-to-b from-white via-white to-white p-10 flex flex-col justify-between border border-none rounded-bl-3xl">
+        <div className="lg:w-2/5 w-full bg-sky-50 p-6 md:p-10 flex flex-col justify-between border-none lg:rounded-bl-3xl lg:mt-0">
           <div>
-            <h2 className="text-4xl font-bold text-black mt-4 mb-2">Country: {city.country}</h2>
-            <p className="text-md text-black font-semibold mb-1">Continent: {city.continent}</p>
-            <p className="text-md text-black font-semibold mb-1">Population: {city.population}</p>
-            <p className="text-md text-black font-semibold mb-1">Currency: {city.currency.code} ({city.currency.symbol})</p>
-            <p className="text-md text-black font-semibold mb-1">Languages: {city.languages}</p>
-            <p className="text-md text-black font-semibold mb-1">Time Zone: {city.timeZone}</p>
-            <p className="text-md text-black font-semibold mb-1">Weather: {city.weather.climate} | Average Temperature: {city.weather.averageTemperature}°C</p>
-            <p className="text-md text-black font-semibold mb-1">Best Time to Visit: {city.weather.bestTimeToVisit}</p>
-            <p className="text-md text-black font-semibold mb-1">Has Airport: {city.transportation.hasAirport ? "Yes" : "No"}</p>
-            <p className="text-md text-black font-semibold mb-1">Has Public Transport: {city.transportation.hasPublicTransport ? "Yes" : "No"}</p>
-            <p className="text-md text-black font-semibold mb-1">Safety Index: {city.safety.safetyIndex}</p>
-            <p className="text-md text-black font-semibold mb-1">Average Hotel Price: ${city.costs.averageHotelPrice}</p>
-            <p className="text-md text-black font-semibold mb-1">Average Meal Price: ${city.costs.averageMealPrice}</p>
-            <p className="text-md text-black font-semibold mb-1">Transportation Price: ${city.costs.transportationPrice}</p>
-            <p className="text-md text-black font-semibold mb-1">Is Capital: {city.isCapital ? "Yes" : "No"}</p>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mt-4 md:mt-4 mb-2">
+              {city.country}
+            </h2>
+            <div className="grid grid-cols-2 gap-4 mt-4 md:mt-6">
+            <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">
+                  south_america
+                </span>
+                {city.continent}
+              </div>
+              <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">
+                  language_chinese_cangjie
+                </span>
+                {city.languages}
+              </div>
+              <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">payments</span>
+                {city.currency.code} ({city.currency.symbol})
+              </div>
+             <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">
+                  pace
+                </span>
+                {city.timeZone}
+              </div>
+             <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">
+                  weather_mix
+                </span>
+                {city.weather.climate}
+              </div>
+             <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">
+                  flight_land
+                </span>
+                {city.transportation.hasAirport ? "Yes" : "No"}
+              </div>
+             <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">
+                  hotel
+                </span>
+                ${city.costs.averageHotelPrice}
+              </div>
+             <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
+                <span className="material-symbols-outlined text-8xl mb-2">
+                  fastfood
+                </span>
+                ${city.costs.averageMealPrice}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="h-screen flex flex-col items-center justify-center bg-center bg-cover">
+      <div className="h-auto flex flex-col items-center justify-center bg-center bg-cover px-4  ">
         <Itinerary />
       </div>
+
     </>
   );
 }
