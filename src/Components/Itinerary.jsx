@@ -1,13 +1,16 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItineraryAsync } from "../../store/action/itinerariesAction";
-import { ButtonSecundary } from "./ButtonSecudary";
+import { ButtonPrimary } from "./ButtonPrimary";
+import { ModalActivities } from "./ModalActivities";  // Importamos el modal
 
 export function Itinerary() {
   const { id: cityId } = useParams();
   const dispatch = useDispatch();
   const { itineraries, loading, error } = useSelector((state) => state.itineraries);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);  // Estado para manejar la visibilidad del modal
 
   useEffect(() => {
     if (cityId) {
@@ -18,6 +21,14 @@ export function Itinerary() {
   if (loading) return <p className="text-center text-white">Loading...</p>;
   if (error) return <p className="text-center text-red-500">Error: {error}</p>;
   if (!itineraries.length) return <div className="mb-6"><p className="text-center text-white mt-10 text-3xl border bg-gray-800 rounded-lg p-4">No itineraries yet for this city</p></div>
+
+  const handleViewMore = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -75,37 +86,35 @@ export function Itinerary() {
                     ))}
                   </div>
                 )}
-
-                <div className="mt-4 flex flex-row">
-
-                  <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full mr-3">
-                    <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
-                  </div>
-
-                  <input
-                    type="text"
-                    className="w-auto px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-200"
-                    placeholder="Add a comment..."
-                    disabled
-                  />
-                </div>
               </div>
 
               <div className="p-4 text-end mt-auto">
-                <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                  View more
-                  <svg className="w-4 h-4 ml-2" aria-hidden="true" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                  </svg>
-                </button>
+                <ButtonPrimary onClick={handleViewMore} className={'text-end'} name={"View more"} icon={<svg className="w-4 h-4 ml-2 mt-1" aria-hidden="true" fill="none" viewBox="0 0 14 10">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                </svg>}></ButtonPrimary>
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Modal de actividades */}
+      <ModalActivities isOpen={isModalOpen} onClose={handleCloseModal} />
     </>
-
-
-
   );
 }
+
+
+{/* <div className="mt-4 flex flex-row">
+
+<div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full mr-3">
+  <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+</div>
+
+<input
+  type="text"
+  className="w-auto px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-200"
+  placeholder="Add a comment..."
+  disabled
+/>
+</div> */}
