@@ -15,7 +15,7 @@ const itinerariesReducer = createReducer(initialState, (builder) => {
         })
         .addCase(fetchItineraryAsync.fulfilled, (state, action) => {
             state.loading = false;
-            state.itineraries = action.payload; // Debería ser un array de itinerarios
+            state.itineraries = action.payload; 
         })
         .addCase(fetchItineraryAsync.rejected, (state, action) => {
             state.loading = false;

@@ -48,54 +48,54 @@ export function Details() {
         </div>
 
         {/* Panel derecho con contenido */}
-        <div className="lg:w-2/5 w-full bg-sky-50 p-6 md:p-10 flex flex-col justify-between border-none lg:rounded-bl-3xl lg:mt-0">
+        <div className="lg:w-2/5 w-full bg-sky-50 md:p-10 flex flex-col justify-between border-none lg:rounded-bl-3xl lg:mt-0">
           <div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mt-4 md:mt-4 mb-2">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mt-2 md:mt-4 mb-2">
               {city.country}
             </h2>
             <div className="grid grid-cols-2 gap-4 mt-4 md:mt-6">
             <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">
+                <span className="material-symbols-outlined text-7xl mb-2">
                   south_america
                 </span>
                 {city.continent}
               </div>
               <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">
+                <span className="material-symbols-outlined text-7xl mb-2">
                   language_chinese_cangjie
                 </span>
                 {city.languages}
               </div>
               <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">payments</span>
+                <span className="material-symbols-outlined text-7xl mb-2">payments</span>
                 {city.currency.code} ({city.currency.symbol})
               </div>
              <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">
+                <span className="material-symbols-outlined text-7xl mb-2">
                   pace
                 </span>
                 {city.timeZone}
               </div>
              <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">
+                <span className="material-symbols-outlined text-7xl mb-2">
                   weather_mix
                 </span>
                 {city.weather.climate}
               </div>
              <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">
+                <span className="material-symbols-outlined text-7xl mb-2">
                   flight_land
                 </span>
                 {city.transportation.hasAirport ? "Yes" : "No"}
               </div>
              <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">
+                <span className="material-symbols-outlined text-7xl mb-2">
                   hotel
                 </span>
                 ${city.costs.averageHotelPrice}
               </div>
              <div className=" bg-white flex flex-col items-center justify-center rounded-lg shadow-md shadow-teal-500">
-                <span className="material-symbols-outlined text-8xl mb-2">
+                <span className="material-symbols-outlined text-7xl mb-2">
                   fastfood
                 </span>
                 ${city.costs.averageMealPrice}

@@ -1,25 +1,26 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { fetchCitiesAsync } from '../action/citiesAction';
+import { setSearchTerm, fetchCitiesAsync } from '../action/citiesAction';
 
 const initialState = {
-  items: [],
+  cities: [],
   loading: false,
-  error: null
+  searchTerm: '',
 };
 
 const citiesReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(setSearchTerm, (state, action) => {
+      state.searchTerm = action.payload;
+    })
     .addCase(fetchCitiesAsync.pending, (state) => {
-      state.loading = true;
-      state.error = null;
+      state.loading = true; 
     })
     .addCase(fetchCitiesAsync.fulfilled, (state, action) => {
-      state.loading = false;
-      state.items = action.payload;
+      state.loading = false; 
+      state.cities = action.payload; 
     })
-    .addCase(fetchCitiesAsync.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+    .addCase(fetchCitiesAsync.rejected, (state) => {
+      state.loading = false; 
     });
 });
 

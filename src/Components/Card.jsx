@@ -7,13 +7,12 @@ import { Skeleton } from "./Skeleton";
 
 export function Card({ searchTerm }) {
   const dispatch = useDispatch();
-  
-  // Obtener ciudades y estado de carga del store
-  const cities = useSelector((state) => state.cities.items);
+
+  const cities = useSelector((state) => state.cities.cities); 
   const loading = useSelector((state) => state.cities.loading);
 
   useEffect(() => {
-    dispatch(fetchCitiesAsync(searchTerm)); // Ejecutar fetchCitiesAsync con searchTerm
+    dispatch(fetchCitiesAsync(searchTerm)); 
   }, [dispatch, searchTerm]);
 
   return (
@@ -33,7 +32,6 @@ export function Card({ searchTerm }) {
             key={city._id}
             className="group max-w-sm h-64 rounded-lg shadow-md relative overflow-hidden"
           >
-            {/* Imagen con efecto de hover */}
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
               style={{
@@ -41,7 +39,6 @@ export function Card({ searchTerm }) {
               }}
             ></div>
 
-            {/* Overlay para oscurecer con hover */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300"></div>
 
             <div className="relative z-15 p-6 h-full flex flex-col justify-between">

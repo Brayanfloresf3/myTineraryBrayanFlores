@@ -17,7 +17,7 @@ export function Itinerary() {
 
   if (loading) return <p className="text-center text-white">Loading...</p>;
   if (error) return <p className="text-center text-red-500">Error: {error}</p>;
-  if (!itineraries.length) return <div className="mb-6"><p className="text-center text-white mt-10 text-3xl border bg-gray-800 rounded-lg p-4">There are no itineraries available for this city.</p></div>
+  if (!itineraries.length) return <div className="mb-6"><p className="text-center text-white mt-10 text-3xl border bg-gray-800 rounded-lg p-4">No itineraries yet for this city</p></div>
 
   return (
     <>
@@ -78,8 +78,8 @@ export function Itinerary() {
 
                 <div className="mt-4 flex flex-row">
 
-                  <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full mr-3">
-                    <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                  <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full mr-3">
+                    <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
                   </div>
 
                   <input

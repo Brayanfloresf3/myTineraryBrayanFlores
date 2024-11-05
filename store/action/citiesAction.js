@@ -1,7 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const addCity = createAction('cities/addCity');
-export const removeCity = createAction('cities/removeCity');
+export const setSearchTerm = createAction('cities/setSearchTerm'); 
 export const fetchCities = createAction('cities/fetchCities');
 
 export const fetchCitiesAsync = createAsyncThunk(
@@ -12,4 +11,4 @@ export const fetchCitiesAsync = createAsyncThunk(
     const data = await response.json(); 
     return data.response;
   }
-)
+);
