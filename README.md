@@ -38,11 +38,9 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu entorno local:
 1. **Clona los repositorios del backend y del frontend:**
 
    ```bash
-   # Clona el repositorio del frontend
    git clone https://github.com/Brayanfloresf3/myTineraryBrayanFlores.git
-   cd mytinerary-front
 
-   # Clona el repositorio del backend en una ubicación aparte
+  ```bash
    git clone https://github.com/Brayanfloresf3/mytinerary-back-brayanFlores.git
 
 
