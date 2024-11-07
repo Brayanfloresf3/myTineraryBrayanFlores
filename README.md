@@ -24,7 +24,7 @@ Para que la aplicación funcione completamente, se debe tener tanto el frontend 
 
 ## 📦 Dependencias
 
-Este proyecto utiliza varias dependencias para la funcionalidad y el estilo:
+
 
 - `react`: Biblioteca de JavaScript para crear interfaces de usuario.
 - `react-dom`: Permite que React interactúe con el DOM.
@@ -40,13 +40,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu entorno local:
    ```bash
    git clone https://github.com/Brayanfloresf3/myTineraryBrayanFlores.git
 
+
   ```bash
    git clone https://github.com/Brayanfloresf3/mytinerary-back-brayanFlores.git
 
-
-## Getting Started
-
-Server should run automatically when starting a workspace. To run manually, run:
-```sh
-npm run dev
-```
