@@ -1,37 +1,31 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { signUp } from "../../store/action/authAction"
+
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, NavLink } from "react-router-dom";
+import { signUp, updateFormField, resetForm } from "../../store/action/authAction";
+
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
-    photoUrl: "",
-    country: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  // Extraer datos del estado global usando useSelector
+  const { formData, loading, error } = useSelector((state) => state.authStore);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Manejar cambios en los campos del formulario
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    dispatch(updateFormField(name, value)); // Actualiza el campo en Redux
   };
 
+  // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
     try {
-      await dispatch(signUp(formData));
-      navigate("/home");
+      // Despacha la acción signUp
+      await dispatch(signUp(formData)).unwrap(); // Asegura que errores sean manejados correctamente
+      navigate("/home"); // Redirige al usuario tras un registro exitoso
     } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
+      console.error("Error during sign up:", error);
     }
   };
 
@@ -42,7 +36,6 @@ const SignUp = () => {
           Create your Mytinerary Account
         </h3>
         <form onSubmit={handleSubmit} className="space-y-2">
-
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
               First Name
@@ -140,7 +133,7 @@ const SignUp = () => {
               <option value="Colombia">Colombia</option>
               <option value="Argentina">Argentina</option>
               <option value="Chile">Chile</option>
-              <option value="Costa Rica"></option>
+              <option value="Costa Rica">Costa Rica</option>
             </select>
           </div>
           <button
@@ -150,15 +143,15 @@ const SignUp = () => {
             }`}
             disabled={loading}
           >
+            
             {loading ? "Creating account..." : "Sign Up"}
           </button>
           <div className="text-sm text-center text-gray-500">
             Already have an account?{" "}
-            <a href="/signin" className="text-blue-700 hover:underline">
+            < NavLink to="/signin" className="text-blue-700 hover:underline">
               Sign in
-            </a>
+            </NavLink>
           </div>
-          {loading && <p className="text-blue-500 text-center">Loading...</p>}
           {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
       </div>

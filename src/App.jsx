@@ -11,6 +11,7 @@ import { setUser } from '../store/action/authAction.js';
 import { SignIn } from './Pages/SignIn.jsx';
 import SignInRoute from './Components/SignInRoute.jsx';
 import SignUp from './Pages/SignUp.jsx';
+import SignOut from './Pages/SignOut.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: '/details/:id', element: <Details /> },
       { path: '/signin', element:<SignInRoute><SignIn /></SignInRoute> } ,
       { path: '/signup', element: <SignUp /> },
+      { path: '/signout', element: <SignOut /> }
     ]
   },
   { path: '/*', element: <NoFound /> } 

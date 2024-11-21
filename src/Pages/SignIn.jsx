@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/action/authAction";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export function SignIn() {
     const [email, setEmail] = useState("");
@@ -108,9 +108,9 @@ export function SignIn() {
 
                     <div className="text-sm text-center text-gray-500">
                         Not registered?{" "}
-                        <a href="#" className="text-blue-700 hover:underline">
+                        <NavLink to="/signup" className="text-blue-700 hover:underline">
                             Create account
-                        </a>
+                        </NavLink>
                     </div>
 
                     {loading && <p className="text-blue-500 text-center">Loading...</p>}

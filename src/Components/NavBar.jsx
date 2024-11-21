@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { ButtonPrimary } from './ButtonPrimary';
 import { useSelector, useDispatch } from 'react-redux';
 import { setScrolled, toggleMenu } from '../../store/reducer/navBarReducer';
+import Avatar from './Avatar';
+
 
 export function NavBar() {
     const dispatch = useDispatch();
@@ -34,7 +36,7 @@ export function NavBar() {
                         MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden md:inline-block mb-2' />TINERARY
                     </span>
                 </NavLink>
-                <div className="flex md:order-2 space-x-3 md:space-x-0">
+                <div className="flex md:order-2 space-x-3 md:space-x-0 gap-2">
                     {!token && (
                         <>
                             <NavLink to="/signin">
@@ -53,16 +55,16 @@ export function NavBar() {
                                     name="Sign Up"
                                     className="text-sm"
                                     icon={
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7-3.5a.5.5 0 0 1 .5-.5H15V3a.5.5 0 0 1 1 0v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0V5h-1a.5.5 0 0 1-.5-.5z" />
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                    </svg>
                                     }
                                 />
                             </NavLink>
                         </>
                     )}
-
-
+                    {token && ( <Avatar></Avatar>)}
+                    
                     <button
                         onClick={() => dispatch(toggleMenu())}
                         type="button"
