@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ButtonPrimary } from './ButtonPrimary';
-import { ModalSignIn } from './ModalSignIn';
 import { useSelector, useDispatch } from 'react-redux';
-import { setScrolled, toggleMenu, toggleModal } from '../../store/reducer/navBarReducer';
+import { setScrolled, toggleMenu } from '../../store/reducer/navBarReducer';
 
 export function NavBar() {
     const dispatch = useDispatch();
     const isScrolled = useSelector((state) => state.navbar.isScrolled);
     const isMenuOpen = useSelector((state) => state.navbar.isMenuOpen);
-    const isModalOpen = useSelector((state) => state.navbar.isModalOpen);
+    const token = useSelector((state) => state.authStore.token);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,7 +23,7 @@ export function NavBar() {
 
     const routes = [
         { to: '/', text: 'Home' },
-        { to: '/Cities', text: 'Cities' },
+        { to: '/cities', text: 'Cities' },
     ];
 
     return (
@@ -36,14 +35,33 @@ export function NavBar() {
                     </span>
                 </NavLink>
                 <div className="flex md:order-2 space-x-3 md:space-x-0">
-                    <ButtonPrimary
-                        name="Sign in"
-                        onClick={() => dispatch(toggleModal())}
-                        className="text-sm"
-                        icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        </svg>}
-                    />
+                    {!token && (
+                        <>
+                            <NavLink to="/signin">
+                                <ButtonPrimary
+                                    name="Sign In"
+                                    className="text-sm"
+                                    icon={
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                        </svg>
+                                    }
+                                />
+                            </NavLink>
+                            <NavLink to="/signup">
+                                <ButtonPrimary
+                                    name="Sign Up"
+                                    className="text-sm"
+                                    icon={
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7-3.5a.5.5 0 0 1 .5-.5H15V3a.5.5 0 0 1 1 0v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0V5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    }
+                                />
+                            </NavLink>
+                        </>
+                    )}
+
 
                     <button
                         onClick={() => dispatch(toggleMenu())}
@@ -58,8 +76,6 @@ export function NavBar() {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                         </svg>
                     </button>
-
-                    {isModalOpen && <ModalSignIn onClose={() => dispatch(toggleModal())} />}
                 </div>
                 <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="navbar-sticky">
                     <ul className="flex flex-col text-lg p-4 md:p-0 mt-4 font-medium md:space-x-8 md:flex-row md:mt-0">

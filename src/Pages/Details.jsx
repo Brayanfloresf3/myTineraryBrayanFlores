@@ -48,7 +48,7 @@ export function Details() {
         </div>
 
         {/* Panel derecho con contenido */}
-        <div className="lg:w-2/5 w-full bg-sky-50 md:p-10 flex flex-col justify-between border-none lg:rounded-bl-3xl lg:mt-0">
+        <div className="lg:w-2/5 w-full bg-sky-50 p-4 md:p-10 flex flex-col justify-between border-none lg:rounded-bl-3xl lg:mt-0">
           <div>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mt-2 md:mt-4 mb-2">
               {city.country}
