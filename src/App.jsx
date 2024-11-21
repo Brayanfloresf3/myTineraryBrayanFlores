@@ -7,11 +7,11 @@ import { Details } from './Pages/Details.jsx';
 import { StandarLayout } from './Layouts/StandardLayaout.jsx';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../store/action/authAction.js';
 import { SignIn } from './Pages/SignIn.jsx';
 import SignInRoute from './Components/SignInRoute.jsx';
 import SignUp from './Pages/SignUp.jsx';
 import SignOut from './Pages/SignOut.jsx';
+import { setUser } from '../store/action/authAction.js';
 
 const router = createBrowserRouter([
   {
@@ -52,10 +52,9 @@ function App() {
 
   const dispatch = useDispatch();
   let token = localStorage.getItem("token");
+  
   if (token) {
-    loginWithToken(token).then((user) => {
-      dispatch(setUser({ user, token }));
-    });
+    dispatch(setUser({ token }));
   }
 
   return (

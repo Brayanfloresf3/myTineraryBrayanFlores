@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { setUser } from "../../store/action/authAction";
 
 export default function Avatar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user } = useSelector((state) => state.authStore);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(setUser({ user: null, token: null })); // Limpia Redux
     navigate("/signout");
   };
 
@@ -17,15 +21,17 @@ export default function Avatar() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest("#userDropdown") && !event.target.closest("#avatarButton")) {
-        setDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+  
+    console.log("Intentando sincronizar LocalStorage con Redux:");
+    console.log("Token:", token);
+    console.log("User:", user);
+  
+    if (token && user) {
+      dispatch(setUser({ user, token }));
+    }
+  }, [dispatch]);
 
   return (
     <div className="relative">
@@ -49,10 +55,7 @@ export default function Avatar() {
 
         <ul className="py-2 text-sm text-gray-700">
           <li>
-            <NavLink
-              to="/home"
-              className="block px-4 py-2 hover:bg-gray-100"
-            >
+            <NavLink to="/home" className="block px-4 py-2 hover:bg-gray-100">
               Home
             </NavLink>
           </li>

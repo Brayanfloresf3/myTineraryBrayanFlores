@@ -11,8 +11,7 @@ const SignOut = () => {
     // Elimina el token del almacenamiento local
     localStorage.removeItem("token");
 
-    // Limpia el estado del usuario en Redux
-    dispatch(setUser({ user: null, token: null }));
+   
 
     // Redirige al usuario a la página de inicio de sesión
     navigate("/signin");
