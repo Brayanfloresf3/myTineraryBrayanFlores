@@ -1,9 +1,12 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const setUser = createAction('setUser', (user, token) => ({
-    payload: { user, token },
-}));
+export const setUser = createAction('setUser', (userData) => {
+  const { user = null, token = null } = userData || {};
+  return {
+    payload: { user, token }
+  };
+});
 
 export const updateFormField = createAction("auth/updateFormField", (field, value) => ({
   payload: { field, value },
@@ -13,7 +16,7 @@ export const resetForm = createAction("auth/resetForm");
 
 export const login = createAsyncThunk("login", async ({ email, password }) => {
   const credentials = { email, password };
-  const response = await axios.post("https://jl92x5-8080.csb.app/api/auth/signIn", credentials);
+  const response = await axios.post("https://j8s3rt-8080.csb.app/api/auth/signIn", credentials);
 
   // Guardar token y usuario en localStorage
   localStorage.setItem("token", response.data.token);
@@ -25,11 +28,11 @@ export const login = createAsyncThunk("login", async ({ email, password }) => {
 export const signUp = createAsyncThunk("signUp", async (formData, { dispatch }) => {
   try {
     const registerResponse = await axios.post(
-      "https://jl92x5-8080.csb.app/api/users/register",
+      "https://j8s3rt-8080.csb.app/api/users/register",
       formData
     );
     const credentials = { email: formData.email, password: formData.password };
-    const loginResponse = await axios.post("https://jl92x5-8080.csb.app/api/auth/signIn", credentials);
+    const loginResponse = await axios.post("https://j8s3rt-8080.csb.app/api/auth/signIn", credentials);
 
     // Guardar token y usuario
     localStorage.setItem("token", loginResponse.data.token);

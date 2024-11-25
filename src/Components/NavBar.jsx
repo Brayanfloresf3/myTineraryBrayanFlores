@@ -4,23 +4,30 @@ import { ButtonPrimary } from './ButtonPrimary';
 import { useSelector, useDispatch } from 'react-redux';
 import { setScrolled, toggleMenu } from '../../store/reducer/navBarReducer';
 import Avatar from './Avatar';
-import { setUser } from '../../store/action/authAction';
+import { setUser } from "../../store/action/authAction";
+
 
 
 export function NavBar() {
     const dispatch = useDispatch();
     const isScrolled = useSelector((state) => state.navbar.isScrolled);
     const isMenuOpen = useSelector((state) => state.navbar.isMenuOpen);
-    const token = useSelector((state) => state.authStore); // Asegúrate de que se accede a 'token'
+    const token = useSelector((state) => state.authStore.user); // Asegúrate de que se accede a 'token'
     const user = useSelector((state) => state.authStore.user); // Asegúrate de que se accede a 'user'
-
+  
     useEffect(() => {
-        const tokenFromLocalStorage = localStorage.getItem('token');
-        console.log('Token desde LocalStorage:', tokenFromLocalStorage); // Verifica que llega el token
-        if (tokenFromLocalStorage && !token) {
-            dispatch(setUser({ token: tokenFromLocalStorage, user: null }));
+        const token = localStorage.getItem("token");
+        const user = JSON.parse(localStorage.getItem("user"));
+    
+        // console.log("LocalStorage User:", user);
+        // console.log("LocalStorage Token:", token);
+    
+        // Sincronizar Redux solo si los datos son diferentes
+        if (token && user && (!user || token !== token)) {
+          console.log("Sincronizando Redux con LocalStorage");
+          dispatch(setUser({ user, token }));
         }
-    }, [dispatch, token]);
+      }, [dispatch, user, token]);
 
     
     useEffect(() => {

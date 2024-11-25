@@ -1,8 +1,7 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
-import { signUp, updateFormField, resetForm } from "../../store/action/authAction";
-
+import { useState } from "react";
+import { signUp, updateFormField } from "../../store/action/authAction";
 
 const SignUp = () => {
   // Extraer datos del estado global usando useSelector
@@ -10,26 +9,61 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [validationError, setValidationError] = useState("");
 
   // Manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatch(updateFormField(name, value)); // Actualiza el campo en Redux
+    setValidationError(""); // Limpia el mensaje de error al escribir
+  };
+
+  // Validar el formulario
+  const validateForm = () => {
+    const { name, lastname, email, password, photoUrl, country } = formData;
+
+    if (!name.trim() || !lastname.trim()) {
+      return "First and last name are required.";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address.";
+    }
+
+    if (password.length < 8) {
+      return "Password must be at least 8 characters long.";
+    }
+
+    const urlRegex = /^(https?:\/\/[^\s$.?#].[^\s]*)$/;
+    if (!urlRegex.test(photoUrl)) {
+      return "Please enter a valid photo URL.";
+    }
+
+    if (!country) {
+      return "Please select your country.";
+    }
+
+    return ""; // No errores
   };
 
   // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationMessage = validateForm();
+
+    if (validationMessage) {
+      setValidationError(validationMessage);
+      return;
+    }
+
     try {
-      // Despacha la acción signUp
       await dispatch(signUp(formData)).unwrap(); // Asegura que errores sean manejados correctamente
       navigate("/home"); // Redirige al usuario tras un registro exitoso
     } catch (error) {
       console.error("Error during sign up:", error);
     }
   };
-
-
 
   return (
     <div className="min-h-screen flex items-center justify-center mt-20 mb-7">
@@ -145,15 +179,15 @@ const SignUp = () => {
             }`}
             disabled={loading}
           >
-            
             {loading ? "Creating account..." : "Sign Up"}
           </button>
           <div className="text-sm text-center text-gray-500">
             Already have an account?{" "}
-            < NavLink to="/signin" className="text-blue-700 hover:underline">
+            <NavLink to="/signin" className="text-blue-700 hover:underline">
               Sign in
             </NavLink>
           </div>
+          {validationError && <p className="text-red-500 text-center">{validationError}</p>}
           {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
       </div>

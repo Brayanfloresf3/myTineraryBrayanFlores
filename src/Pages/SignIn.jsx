@@ -32,7 +32,7 @@ export function SignIn() {
     const { loading, error } = authStore;
 
     const signInGoogle = () => {
-       window.location.href = "https://jl92x5-8080.csb.app/api/auth/signIn/google";
+       window.location.href = "https://j8s3rt-8080.csb.app/api/auth/signIn/google/";
     };
 
     return (

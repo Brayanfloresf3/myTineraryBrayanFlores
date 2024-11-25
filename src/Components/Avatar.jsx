@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { setUser } from "../../store/action/authAction";
 
 export default function Avatar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user } = useSelector((state) => state.authStore); // Accedemos al estado global de Redux
+  const { user } = useSelector((state) => state.authStore);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dropdownRef = useRef(null);
 
-  // Función para cerrar sesión
   const handleSignOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -17,35 +17,46 @@ export default function Avatar() {
     navigate("/signout");
   };
 
-  // Función para abrir/cerrar el dropdown de opciones
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    // Solo cargamos los datos del localStorage si no hay un usuario en el estado global
+    const storedUser = localStorage.getItem("user");
     const token = localStorage.getItem("token");
-    const userFromStorage = JSON.parse(localStorage.getItem("user"));
 
-    // Si el token y el usuario existen en el localStorage, los cargamos en el estado global
-    if (token && userFromStorage) {
-      dispatch(setUser({ user: userFromStorage, token }));
+    // Si existen los datos del usuario y token en el localStorage, actualizamos Redux
+    if (storedUser && token) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        dispatch(setUser({ user: parsedUser, token }));
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        handleSignOut();
+      }
     }
-  }, [dispatch]); // Ejecutamos este efecto solo una vez cuando el componente se monta
+  }, [dispatch]);
 
-  // Si no tenemos un usuario cargado aún, evitamos renderizar el componente
-  if (!user) {
-    return null; // O podrías mostrar un "cargando..." si prefieres
-  }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className="relative">
-      {/* Avatar de usuario */}
+    <div className="relative" ref={dropdownRef}>
       <img
         id="avatarButton"
         onClick={toggleDropdown}
         className="w-10 h-10 rounded-full cursor-pointer"
-        src={user?.photoUrl || "/default-avatar.jpg"} // Usamos la foto del usuario o una predeterminada
+        src={user?.photoUrl || "/default-avatar.jpg"}
         alt="User dropdown"
       />
 
@@ -55,8 +66,8 @@ export default function Avatar() {
         }`}
       >
         <div className="px-4 py-3 text-sm text-gray-900">
-          <div>{user?.name || "User Name"}</div> {/* Mostramos el nombre del usuario */}
-          <div className="font-medium truncate">{user?.email || "email@example.com"}</div> {/* Mostramos el email */}
+          <div>{user?.name || "User Name"}</div>
+          <div className="font-medium truncate">{user?.email || "email@example.com"}</div>
         </div>
 
         <ul className="py-2 text-sm text-gray-700">
@@ -73,7 +84,6 @@ export default function Avatar() {
         </ul>
 
         <div className="py-1">
-          {/* Botón de cerrar sesión */}
           <button
             onClick={handleSignOut}
             className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
