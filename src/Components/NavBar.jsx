@@ -4,14 +4,25 @@ import { ButtonPrimary } from './ButtonPrimary';
 import { useSelector, useDispatch } from 'react-redux';
 import { setScrolled, toggleMenu } from '../../store/reducer/navBarReducer';
 import Avatar from './Avatar';
+import { setUser } from '../../store/action/authAction';
 
 
 export function NavBar() {
     const dispatch = useDispatch();
     const isScrolled = useSelector((state) => state.navbar.isScrolled);
     const isMenuOpen = useSelector((state) => state.navbar.isMenuOpen);
-    const token = useSelector((state) => state.authStore.token);
+    const token = useSelector((state) => state.authStore); // Asegúrate de que se accede a 'token'
+    const user = useSelector((state) => state.authStore.user); // Asegúrate de que se accede a 'user'
 
+    useEffect(() => {
+        const tokenFromLocalStorage = localStorage.getItem('token');
+        console.log('Token desde LocalStorage:', tokenFromLocalStorage); // Verifica que llega el token
+        if (tokenFromLocalStorage && !token) {
+            dispatch(setUser({ token: tokenFromLocalStorage, user: null }));
+        }
+    }, [dispatch, token]);
+
+    
     useEffect(() => {
         const handleScroll = () => {
             dispatch(setScrolled(window.scrollY > 0));
@@ -43,27 +54,19 @@ export function NavBar() {
                                 <ButtonPrimary
                                     name="Sign In"
                                     className="text-sm"
-                                    icon={
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
-                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                        </svg>
-                                    }
+                                    icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" /></svg>}
                                 />
                             </NavLink>
                             <NavLink to="/signup">
                                 <ButtonPrimary
                                     name="Sign Up"
                                     className="text-sm"
-                                    icon={
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
-                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                    </svg>
-                                    }
+                                    icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" /></svg>}
                                 />
                             </NavLink>
                         </>
                     )}
-                    {token && ( <Avatar></Avatar>)}
+                    {token && <Avatar />}
                     
                     <button
                         onClick={() => dispatch(toggleMenu())}

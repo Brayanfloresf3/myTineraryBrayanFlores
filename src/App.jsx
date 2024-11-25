@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Home } from './Pages/Home.jsx'
+import { Home } from './Pages/Home.jsx';
 import { Cities } from './Pages/Cities.jsx';
 import { NoFound } from './Pages/NotFound.jsx';
 import { Details } from './Pages/Details.jsx';
@@ -19,15 +19,17 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/home', element: <Home /> },
-      { path: '/cities', element: <Cities />},
+      { path: '/cities', element: <Cities /> },
       { path: '/details/:id', element: <Details /> },
-      { path: '/signin', element:<SignInRoute><SignIn /></SignInRoute> } ,
+      { path: '/signin', element: <SignInRoute><SignIn /></SignInRoute> },
       { path: '/signup', element: <SignUp /> },
-      { path: '/signout', element: <SignOut /> }
-    ]
+      { path: '/signout', element: <SignOut /> },
+    ],
   },
-  { path: '/*', element: <NoFound /> } 
+  { path: '/*', element: <NoFound /> },
 ]);
+
+// Lógica para validar el token
 const loginWithToken = async (token) => {
   try {
     console.log("Se ejecuto Login With Token");
@@ -40,27 +42,35 @@ const loginWithToken = async (token) => {
         },
       }
     );
-    
-    return response.data.response;
+
+    console.log("Respuesta del servidor:", response.data);
+    return response.data.user; // Devuelve el usuario directamente
   } catch (error) {
-    console.log("error", error);
+    console.log("Error al validar el token:", error.response?.data || error.message);
+    return null; // Devuelve null si falla
   }
 };
 
-
 function App() {
-
   const dispatch = useDispatch();
-  let token = localStorage.getItem("token");
-  
-  if (token) {
-    dispatch(setUser({ token }));
-  }
+
+  // useEffect para sincronizar el estado inicial
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      loginWithToken(token).then((user) => {
+        if (user) {
+          dispatch(setUser({ user, token })); // Guarda el usuario en Redux
+        } else {
+          console.error("Token inválido o usuario no encontrado.");
+          localStorage.removeItem("token"); // Elimina el token inválido
+        }
+      });
+    }
+  }, [dispatch]); // Solo se ejecuta una vez al montar
 
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+    <RouterProvider router={router} />
   );
 }
 

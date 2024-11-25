@@ -8,10 +8,12 @@ const SignOut = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Elimina el token del almacenamiento local
+    // Elimina tanto el token como el usuario de localStorage
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-   
+    // Restablece el estado de Redux
+    dispatch(setUser({ user: null, token: null }));
 
     // Redirige al usuario a la página de inicio de sesión
     navigate("/signin");

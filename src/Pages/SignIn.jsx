@@ -18,7 +18,6 @@ export function SignIn() {
             alert("Invalid email format");
             return;
         }
-
         dispatch(login({ email, password }));
     };
 
@@ -26,10 +25,15 @@ export function SignIn() {
     useEffect(() => {
         if (authStore.isAuthenticated) {
             navigate("/home");
+            
         }
     }, [authStore.isAuthenticated, navigate]);
 
     const { loading, error } = authStore;
+
+    const signInGoogle = () => {
+       window.location.href = "https://jl92x5-8080.csb.app/api/auth/signIn/google";
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center">
@@ -97,6 +101,7 @@ export function SignIn() {
                     <button
                         type="button"
                         className="w-full py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm flex items-center justify-center gap-2"
+                        onClick={()=>signInGoogle()}
                     >
                         <img
                             src="https://webimages.mongodb.com/_com_assets/cms/kr6fvgdym4qzsgqo3-Google%20Icon.svg?auto=format%252Ccompress"

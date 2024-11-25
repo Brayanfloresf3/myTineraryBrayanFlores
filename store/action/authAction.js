@@ -1,7 +1,9 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const setUser = createAction("setUser"); // Acción para establecer usuario
+export const setUser = createAction('setUser', (user, token) => ({
+    payload: { user, token },
+}));
 
 export const updateFormField = createAction("auth/updateFormField", (field, value) => ({
   payload: { field, value },
@@ -41,19 +43,19 @@ export const signUp = createAsyncThunk("signUp", async (formData, { dispatch }) 
   }
 });
 
-export const fetchUserFromToken = createAsyncThunk(
-  "auth/fetchUserFromToken",
-  async (_, { rejectWithValue }) => {
-    const token = localStorage.getItem("token");
-    if (!token) return rejectWithValue("No token found");
+// export const fetchUserFromToken = createAsyncThunk(
+//   "auth/fetchUserFromToken",
+//   async (_, { rejectWithValue }) => {
+//     const token = localStorage.getItem("token");
+//     if (!token) return rejectWithValue("No token found");
 
-    try {
-      const response = await axios.get("https://tu-backend/api/auth/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return response.data.user;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Error fetching user");
-    }
-  }
-);
+//     try {
+//       const response = await axios.get("https://tu-backend/api/auth/me", {
+//         headers: { Authorization: `Bearer ${token}` },
+//       });
+//       return response.data.user;
+//     } catch (error) {
+//       return rejectWithValue(error.response?.data || "Error fetching user");
+//     }
+//   }
+// );

@@ -1,9 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { login, setUser, signUp, updateFormField, resetForm, fetchUserFromToken } from "../action/authAction";
+import { login, setUser, signUp, updateFormField, resetForm } from "../action/authAction";
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || null, // Datos del usuario de localStorage
-  token: localStorage.getItem("token") || null, // Token de localStorage
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  token: localStorage.getItem("token") || null,
   loading: false,
   error: null,
   formData: {
@@ -29,8 +29,8 @@ const authReducer = createReducer(initialState, (builder) => {
       state.loading = false;
       
       // Guardar en localStorage
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
-      localStorage.setItem("token", action.payload.token);
+      // localStorage.setItem("user", JSON.stringify(action.payload.user));
+      // localStorage.setItem("token", action.payload.token);
     })
     .addCase(login.rejected, (state, action) => {
       state.loading = false;
@@ -54,28 +54,11 @@ const authReducer = createReducer(initialState, (builder) => {
     });
 
   // Acción de setUser (Limpiar token y user si es null)
-  builder.addCase(setUser, (state, action) => {
-    const { user, token } = action.payload;
+  builder.addCase(setUser,(state,action)=>{
 
-    if (token === null) {
-      // Eliminar datos de localStorage si no hay token
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      state.token = null;
-      state.user = null;
-    } else {
-      // Actualizar el estado si el token es válido
-      state.token = token;
-      state.user = user;
-      
-      if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-      }
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-    }
-  });
+    state.user = action.payload.user,
+    state.token = action.payload.token
+})
 
   // Acción para actualizar los campos del formulario
   builder.addCase(updateFormField, (state, action) => {
@@ -88,23 +71,7 @@ const authReducer = createReducer(initialState, (builder) => {
     state.formData = initialState.formData;
   });
 
-  // Acción para obtener el usuario del token
-  builder
-    .addCase(fetchUserFromToken.pending, (state) => {
-      state.loading = true;
-    })
-    .addCase(fetchUserFromToken.fulfilled, (state, action) => {
-      state.user = action.payload;
-      state.loading = false;
-      state.error = null;
-      
-      // Actualiza los datos del usuario en localStorage
-      localStorage.setItem("user", JSON.stringify(action.payload));
-    })
-    .addCase(fetchUserFromToken.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+
 });
 
 export default authReducer;
