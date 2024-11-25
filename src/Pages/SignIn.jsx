@@ -36,7 +36,7 @@ export function SignIn() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center mx-3 mt-10">
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
                 <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
                     Sign in to Mytinerary

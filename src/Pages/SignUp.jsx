@@ -65,8 +65,12 @@ const SignUp = () => {
     }
   };
 
+  const signUpGoogle = () => {
+    window.location.href = "https://j8s3rt-8080.csb.app/api/auth/signIn/google/";
+ };
+
   return (
-    <div className="min-h-screen flex items-center justify-center mt-20 mb-7">
+    <div className="min-h-screen flex items-center justify-center md:mt-20 mt-24 mb-7 mx-3">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
         <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
           Create your Mytinerary Account
@@ -181,12 +185,27 @@ const SignUp = () => {
           >
             {loading ? "Creating account..." : "Sign Up"}
           </button>
+          <button
+                        type="button"
+                        className="w-full py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm flex items-center justify-center gap-2"
+                        onClick={()=>signUpGoogle()}
+                    >
+                        <img
+                            src="https://webimages.mongodb.com/_com_assets/cms/kr6fvgdym4qzsgqo3-Google%20Icon.svg?auto=format%252Ccompress"
+                            className="w-5 h-5"
+                            alt="google_logo"
+                        />
+                        Sign up with Google
+                    </button>
           <div className="text-sm text-center text-gray-500">
             Already have an account?{" "}
+            
             <NavLink to="/signin" className="text-blue-700 hover:underline">
               Sign in
             </NavLink>
+            
           </div>
+          
           {validationError && <p className="text-red-500 text-center">{validationError}</p>}
           {error && <p className="text-red-500 text-center">{error}</p>}
         </form>

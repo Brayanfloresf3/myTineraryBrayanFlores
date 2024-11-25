@@ -6,30 +6,30 @@ import { setScrolled, toggleMenu } from '../../store/reducer/navBarReducer';
 import Avatar from './Avatar';
 import { setUser } from "../../store/action/authAction";
 
-
-
 export function NavBar() {
     const dispatch = useDispatch();
     const isScrolled = useSelector((state) => state.navbar.isScrolled);
     const isMenuOpen = useSelector((state) => state.navbar.isMenuOpen);
-    const token = useSelector((state) => state.authStore.user); // Asegúrate de que se accede a 'token'
-    const user = useSelector((state) => state.authStore.user); // Asegúrate de que se accede a 'user'
-  
+    const reduxUser = useSelector((state) => state.authStore.user);
+    const reduxToken = useSelector((state) => state.authStore.token);
+
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const user = JSON.parse(localStorage.getItem("user"));
-    
-        // console.log("LocalStorage User:", user);
-        // console.log("LocalStorage Token:", token);
-    
-        // Sincronizar Redux solo si los datos son diferentes
-        if (token && user && (!user || token !== token)) {
-          console.log("Sincronizando Redux con LocalStorage");
-          dispatch(setUser({ user, token }));
-        }
-      }, [dispatch, user, token]);
+        const storedUser = localStorage.getItem("user");
 
-    
+        try {
+            const user = storedUser ? JSON.parse(storedUser) : null;
+
+            if (token && user && (!reduxUser || !reduxToken)) {
+                dispatch(setUser({ user, token }));
+            }
+        } catch (error) {
+            console.error("Error parsing user from localStorage:", error);
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+        }
+    }, [dispatch, reduxUser, reduxToken]);
+
     useEffect(() => {
         const handleScroll = () => {
             dispatch(setScrolled(window.scrollY > 0));
@@ -51,11 +51,11 @@ export function NavBar() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
                 <NavLink to="/" className="flex items-center">
                     <span className="tracking-wide md:self-center md:text-xl text-white" style={{ fontFamily: 'Bungee, cursive' }}>
-                        MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden md:inline-block mb-2' />TINERARY
+                        MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden sm:inline-block mb-2' />TINERARY
                     </span>
                 </NavLink>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 gap-2">
-                    {!token && (
+                    {!reduxToken && (
                         <>
                             <NavLink to="/signin">
                                 <ButtonPrimary
@@ -64,17 +64,30 @@ export function NavBar() {
                                     icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" /></svg>}
                                 />
                             </NavLink>
-                            <NavLink to="/signup">
+                            <NavLink to="/signup" className="hidden sm:block">
                                 <ButtonPrimary
                                     name="Sign Up"
                                     className="text-sm"
-                                    icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" /></svg>}
+                                    icon={
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            className="bi bi-person-add"
+                                            viewBox="0 0 16 16"
+                                        >
+                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                                            <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+                                        </svg>
+                                    }
                                 />
                             </NavLink>
+
                         </>
                     )}
-                    {token && <Avatar />}
-                    
+                    {reduxToken && <Avatar />}
+
                     <button
                         onClick={() => dispatch(toggleMenu())}
                         type="button"

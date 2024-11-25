@@ -9,10 +9,8 @@ import { setUser } from "../../store/action/authAction";
 
 const loginWithToken = async (token) => {
   try {
-    console.log("Se ejecutó Login With Token");
-
     const response = await axios.get(
-      "https://j8s3rt-8080.csb.app/api/auth/validateToken",
+      "http://localhost:8080/api/auth/validateToken",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -44,19 +42,12 @@ export function Home() {
         email: email || "",
         name: name || "",
       };
-  
-      // Guardar el objeto "user" en el localStorage
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
-  
-      console.log("Guardado en localStorage:", user);
-  
-      // Realizar el login con el token
+
       loginWithToken(token).then((userData) => {
         dispatch(setUser({ user: userData, token }));
       });
-  
-      // Navegar solo después de haber guardado los datos en localStorage
       navigate("/home");
     }
   }, [dispatch, navigate]);

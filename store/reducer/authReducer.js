@@ -106,22 +106,6 @@ const authReducer = createReducer(initialState, (builder) => {
     state.user = user;
     state.token = token;
 
-    // Actualizar localStorage
-    // try {
-    //   if (user) {
-    //     localStorage.setItem("user", JSON.stringify(user));
-    //   } else {
-    //     localStorage.removeItem("user");
-    //   }
-
-    //   if (token) {
-    //     localStorage.setItem("token", token);
-    //   } else {
-    //     localStorage.removeItem("token");
-    //   }
-    // } catch (error) {
-    //   console.error("Error updating user data", error);
-    // }
   });
 
   // Acción para actualizar los campos del formulario

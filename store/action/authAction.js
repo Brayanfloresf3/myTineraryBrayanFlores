@@ -16,7 +16,7 @@ export const resetForm = createAction("auth/resetForm");
 
 export const login = createAsyncThunk("login", async ({ email, password }) => {
   const credentials = { email, password };
-  const response = await axios.post("https://j8s3rt-8080.csb.app/api/auth/signIn", credentials);
+  const response = await axios.post("http://localhost:8080/api/auth/signIn", credentials);
 
   // Guardar token y usuario en localStorage
   localStorage.setItem("token", response.data.token);
@@ -28,11 +28,11 @@ export const login = createAsyncThunk("login", async ({ email, password }) => {
 export const signUp = createAsyncThunk("signUp", async (formData, { dispatch }) => {
   try {
     const registerResponse = await axios.post(
-      "https://j8s3rt-8080.csb.app/api/users/register",
+      "http://localhost:8080/api/users/register",
       formData
     );
     const credentials = { email: formData.email, password: formData.password };
-    const loginResponse = await axios.post("https://j8s3rt-8080.csb.app/api/auth/signIn", credentials);
+    const loginResponse = await axios.post("http://localhost:8080/api/auth/signIn", credentials);
 
     // Guardar token y usuario
     localStorage.setItem("token", loginResponse.data.token);
@@ -46,19 +46,3 @@ export const signUp = createAsyncThunk("signUp", async (formData, { dispatch }) 
   }
 });
 
-// export const fetchUserFromToken = createAsyncThunk(
-//   "auth/fetchUserFromToken",
-//   async (_, { rejectWithValue }) => {
-//     const token = localStorage.getItem("token");
-//     if (!token) return rejectWithValue("No token found");
-
-//     try {
-//       const response = await axios.get("https://tu-backend/api/auth/me", {
-//         headers: { Authorization: `Bearer ${token}` },
-//       });
-//       return response.data.user;
-//     } catch (error) {
-//       return rejectWithValue(error.response?.data || "Error fetching user");
-//     }
-//   }
-// );

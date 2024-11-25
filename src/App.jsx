@@ -30,13 +30,11 @@ const router = createBrowserRouter([
   { path: '/*', element: <NoFound /> },
 ]);
 
-// Función para obtener datos del usuario usando el token
 const loginWithToken = async (token) => {
   try {
-    console.log("Validando el token...");
-
+   
     const response = await axios.get(
-      "https://j8s3rt-8080.csb.app/api/auth/validateToken",
+      "http://localhost:8080/api/auth/validateToken",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -44,7 +42,6 @@ const loginWithToken = async (token) => {
       }
     );
 
-    console.log("Usuario validado:", response.data.user);
     return response.data.user;
   } catch (error) {
     console.error("Error al validar el token:", error.response?.data || error.message);
@@ -61,7 +58,6 @@ function App() {
       const token = localStorage.getItem('token');
 
       if (!token) {
-        console.log("No se encontró un token en el almacenamiento local.");
         setIsValidatingToken(false);
         return;
       }
