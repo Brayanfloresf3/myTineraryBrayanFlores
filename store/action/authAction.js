@@ -40,7 +40,7 @@ export const signUp = createAsyncThunk("signUp", async (formData, { dispatch }) 
       formData
     );
     const credentials = { email: formData.email, password: formData.password };
-    const loginResponse = await axios.post("https://j8s3rt-8080.csb.app/api/auth/signIn", credentials);
+    const loginResponse = await axios.post("http://localhost:8080/api/auth/signIn", credentials);
 
     localStorage.setItem("token", loginResponse.data.token);
     localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
