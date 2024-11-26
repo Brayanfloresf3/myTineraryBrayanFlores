@@ -7,7 +7,7 @@ export function ModalActivities({ isOpen, onClose }) {
 
     return (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg w-96">
+            <div className="bg-white p-6 rounded-lg w-96 mx-3">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-3xl font-semibold">Activities</h2>
                     <button onClick={onClose} className="text-gray-500">X</button>

@@ -34,7 +34,7 @@ const loginWithToken = async (token) => {
   try {
    
     const response = await axios.get(
-      "http://localhost:8080/api/auth/validateToken",
+      "https://j8s3rt-8080.csb.app/api/auth/validateToken",
       {
         headers: {
           Authorization: `Bearer ${token}`,
