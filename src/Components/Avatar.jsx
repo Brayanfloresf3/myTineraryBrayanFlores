@@ -52,14 +52,16 @@ export default function Avatar() {
 
   return (
     <div className="relative" ref={dropdownRef}>
+      <span className="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full"></span>
       <img
         id="avatarButton"
         onClick={toggleDropdown}
         className="w-10 h-10 rounded-full cursor-pointer"
         src={user?.photoUrl || "/default-avatar.jpg"}
         alt="User dropdown"
+        
       />
-
+      
       <div
         className={`absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 transition-transform ${
           dropdownOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"

@@ -4,21 +4,19 @@ import { useState } from "react";
 import { signUp, updateFormField } from "../../store/action/authAction";
 
 const SignUp = () => {
-  // Extraer datos del estado global usando useSelector
+
   const { formData, loading, error } = useSelector((state) => state.authStore);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [validationError, setValidationError] = useState("");
 
-  // Manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch(updateFormField(name, value)); // Actualiza el campo en Redux
-    setValidationError(""); // Limpia el mensaje de error al escribir
+    dispatch(updateFormField(name, value)); 
+    setValidationError(""); 
   };
 
-  // Validar el formulario
   const validateForm = () => {
     const { name, lastname, email, password, photoUrl, country } = formData;
 
@@ -44,10 +42,9 @@ const SignUp = () => {
       return "Please select your country.";
     }
 
-    return ""; // No errores
+    return ""; 
   };
 
-  // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationMessage = validateForm();
@@ -58,22 +55,28 @@ const SignUp = () => {
     }
 
     try {
-      await dispatch(signUp(formData)).unwrap(); // Asegura que errores sean manejados correctamente
-      navigate("/home"); // Redirige al usuario tras un registro exitoso
+      await dispatch(signUp(formData)).unwrap(); 
+      navigate("/home"); 
     } catch (error) {
       console.error("Error during sign up:", error);
     }
   };
 
   const signUpGoogle = () => {
-    window.location.href = "https://j8s3rt-8080.csb.app/api/auth/signIn/google/";
+    window.location.href = "http://localhost:8080/api/auth/signIn/google/";
  };
 
   return (
     <div className="min-h-screen flex items-center justify-center md:mt-20 mt-24 mb-7 mx-3">
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-          Create your Mytinerary Account
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md" style={{
+    background: "linear-gradient(135deg, #2B78D9, #45CC8F, #1F9DF2, #45CC8F)",
+    backgroundSize: "400% 400%",
+    animation: "gradientBG 12s ease infinite",
+  }}>
+        <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
+          Create your  <span className="tracking-wide md:self-center md:text-lg text-black" style={{ fontFamily: 'Bungee, cursive' }}>
+                        MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden sm:inline-block mb-2' />TINERARY
+                    </span> Account
         </h3>
         <form onSubmit={handleSubmit} className="space-y-2">
           <div>

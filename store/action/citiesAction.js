@@ -7,8 +7,19 @@ export const fetchCitiesAsync = createAsyncThunk(
   'cities/fetchCities',
   async (searchTerm = "") => {
     const query = searchTerm ? `?name=${searchTerm}` : "";
-    const response = await fetch(`http://localhost:8080/api/cities${query}`);
-    const data = await response.json(); 
+    const token = localStorage.getItem("token"); 
+
+    const response = await fetch(`http://localhost:8080/api/cities${query}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error fetching cities");
+    }
+
+    const data = await response.json();
     return data.response;
   }
 );

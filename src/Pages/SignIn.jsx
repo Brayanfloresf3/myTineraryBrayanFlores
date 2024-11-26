@@ -13,7 +13,6 @@ export function SignIn() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Validación del formato de email
         if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
             alert("Invalid email format");
             return;
@@ -25,21 +24,31 @@ export function SignIn() {
     useEffect(() => {
         if (authStore.isAuthenticated) {
             navigate("/home");
-            
+
         }
     }, [authStore.isAuthenticated, navigate]);
 
     const { loading, error } = authStore;
 
     const signInGoogle = () => {
-       window.location.href = "https://j8s3rt-8080.csb.app/api/auth/signIn/google/";
+        window.location.href = "http://localhost:8080/api/auth/signIn/google/";
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center mx-3 mt-10">
-            <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-                    Sign in to Mytinerary
+        <div
+            className="min-h-screen flex items-center justify-center mx-3 mt-10"
+
+        >
+            <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md" style={{
+                background: "linear-gradient(135deg, #2B78D9, #45CC8F, #1F9DF2, #45CC8F)",
+                backgroundSize: "400% 400%",
+                animation: "gradientBG 12s ease infinite",
+            }}>
+                <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
+                    Sign in to <span className="tracking-wide md:self-center md:text-md text-black" style={{ fontFamily: 'Bungee, cursive' }}>
+                        MY<img src="/assets/faviconLogo.png" alt="logo" className='w-6 h-5 hidden sm:inline-block mb-2' />TINERARY
+                    </span>
+
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -85,14 +94,12 @@ export function SignIn() {
                                 Remember me
                             </label>
                         </div>
-                       
                     </div>
 
                     <button
                         type="submit"
-                        className={`w-full py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm ${
-                            loading ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
+                        className={`w-full py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm ${loading ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
                         disabled={loading}
                     >
                         {loading ? "Signing in..." : "Login to your account"}
@@ -101,7 +108,7 @@ export function SignIn() {
                     <button
                         type="button"
                         className="w-full py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm flex items-center justify-center gap-2"
-                        onClick={()=>signInGoogle()}
+                        onClick={() => signInGoogle()}
                     >
                         <img
                             src="https://webimages.mongodb.com/_com_assets/cms/kr6fvgdym4qzsgqo3-Google%20Icon.svg?auto=format%252Ccompress"
@@ -118,8 +125,11 @@ export function SignIn() {
                         </NavLink>
                     </div>
 
-                    {loading && <p className="text-blue-500 text-center">Loading...</p>}
-                    {error && <p className="text-red-500 text-center">{error}</p>}
+                    {error && (
+                        <div className="mt-4 p-2 bg-red-50 text-red-700 border border-red-300 rounded-lg text-sm">
+                            An error occurred while trying to sign in. Please try again later.
+                        </div>
+                    )}
                 </form>
             </div>
         </div>
