@@ -36,11 +36,14 @@ Para instalar todas las dependencias necesarias, usa el siguiente comando:
 
 ## 🛠️ Instalación
 
-- **Abre http://localhost:3000 en tu navegador para interactuar con la aplicación.**
-
 Sigue estos pasos para instalar y ejecutar el proyecto en tu entorno local:
 
 1. **Clona los repositorios del backend y del frontend:**  
    ```bash
    git clone https://github.com/Brayanfloresf3/myTineraryBrayanFlores.git
+
+  ```bash
    git clone https://github.com/Brayanfloresf3/mytinerary-back-brayanFlores.git
+
+**Abre http://localhost:3000 en tu navegador para interactuar con la aplicación.**
+
