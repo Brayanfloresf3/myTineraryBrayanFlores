@@ -82,7 +82,6 @@ const authReducer = createReducer(initialState, (builder) => {
       state.token = action.payload.token;
       state.loading = false;
 
-      // Guardar en localStorage de manera segura
       try {
         localStorage.setItem("user", JSON.stringify(action.payload.user));
         localStorage.setItem("token", action.payload.token);

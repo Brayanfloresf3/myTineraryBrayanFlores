@@ -10,11 +10,11 @@ export function Cities() {
   const searchTerm = useSelector((state) => state.cities.searchTerm);
 
   const handleSearch = (term) => {
-    dispatch(setSearchTerm(term)); // Despacha la acción para actualizar el término de búsqueda
+    dispatch(setSearchTerm(term)); 
   };
 
   useEffect(() => {
-    dispatch(fetchCitiesAsync(searchTerm)); // Carga las ciudades al montar el componente o al cambiar el término de búsqueda
+    dispatch(fetchCitiesAsync(searchTerm));
   }, [dispatch, searchTerm]);
 
 
