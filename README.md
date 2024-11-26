@@ -21,6 +21,7 @@
   - MongoDB  
 
 Para que la aplicación funcione completamente, se debe tener tanto el frontend como el backend en funcionamiento.
+**Abre http://localhost:3000 en tu navegador para interactuar con la aplicación.**
 
 ## 📦 Dependencias
 
@@ -45,5 +46,5 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu entorno local:
   ```bash
    git clone https://github.com/Brayanfloresf3/mytinerary-back-brayanFlores.git
 
-**Abre http://localhost:3000 en tu navegador para interactuar con la aplicación.**
+
 
